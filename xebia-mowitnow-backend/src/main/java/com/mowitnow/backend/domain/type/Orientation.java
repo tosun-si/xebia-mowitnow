@@ -1,7 +1,7 @@
 package com.mowitnow.backend.domain.type;
 
-import com.google.common.collect.ImmutableMap;
 import com.mowitnow.backend.domain.Position;
+import com.mowitnow.backend.factory.PositionFactory;
 
 /**
  * Contains all possibles mower orientations (N, E, W, S).
@@ -20,11 +20,11 @@ public enum Orientation {
         final int coordinateY) {
 
       // Build and returns a map with all possible positions after applying the given direction.
-      return new ImmutableMap.Builder<Direction, Position>()
-          .put(Direction.G, new Position(coordinateX, coordinateY, Orientation.W))
-          .put(Direction.D, new Position(coordinateX, coordinateY, Orientation.E))
-          .put(Direction.A, new Position(coordinateX, coordinateY + 1, Orientation.N)).build()
-          .get(direction);
+      return PositionFactory.builder()
+          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.W))
+          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.E))
+          .register(Direction.A, () -> new Position(coordinateX, coordinateY + 1, Orientation.N))
+          .create(direction);
     }
   },
   E {
@@ -33,11 +33,11 @@ public enum Orientation {
         final int coordinateY) {
 
       // Build and returns a map with all possible positions after applying the given direction.
-      return new ImmutableMap.Builder<Direction, Position>()
-          .put(Direction.G, new Position(coordinateX, coordinateY, Orientation.N))
-          .put(Direction.D, new Position(coordinateX, coordinateY, Orientation.S))
-          .put(Direction.A, new Position(coordinateX + 1, coordinateY, Orientation.E)).build()
-          .get(direction);
+      return PositionFactory.builder()
+          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.N))
+          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.S))
+          .register(Direction.A, () -> new Position(coordinateX + 1, coordinateY, Orientation.E))
+          .create(direction);
     }
   },
   W {
@@ -46,11 +46,11 @@ public enum Orientation {
         final int coordinateY) {
 
       // Build and returns a map with all possible positions after applying the given direction.
-      return new ImmutableMap.Builder<Direction, Position>()
-          .put(Direction.G, new Position(coordinateX, coordinateY, Orientation.S))
-          .put(Direction.D, new Position(coordinateX, coordinateY, Orientation.N))
-          .put(Direction.A, new Position(coordinateX - 1, coordinateY, Orientation.W)).build()
-          .get(direction);
+      return PositionFactory.builder()
+          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.S))
+          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.N))
+          .register(Direction.A, () -> new Position(coordinateX - 1, coordinateY, Orientation.W))
+          .create(direction);
     }
   },
   S {
@@ -59,11 +59,11 @@ public enum Orientation {
         final int coordinateY) {
 
       // Build and returns a map with all possible positions after applying the given direction.
-      return new ImmutableMap.Builder<Direction, Position>()
-          .put(Direction.G, new Position(coordinateX, coordinateY, Orientation.E))
-          .put(Direction.D, new Position(coordinateX, coordinateY, Orientation.W))
-          .put(Direction.A, new Position(coordinateX, coordinateY - 1, Orientation.S)).build()
-          .get(direction);
+      return PositionFactory.builder()
+          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.E))
+          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.W))
+          .register(Direction.A, () -> new Position(coordinateX, coordinateY - 1, Orientation.S))
+          .create(direction);
     }
   };
 

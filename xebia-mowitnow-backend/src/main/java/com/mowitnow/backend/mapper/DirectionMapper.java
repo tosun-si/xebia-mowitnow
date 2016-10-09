@@ -1,8 +1,8 @@
 package com.mowitnow.backend.mapper;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.mowitnow.backend.constant.MowitnowConstant;
 import com.mowitnow.backend.domain.type.Direction;
@@ -31,7 +31,7 @@ public enum DirectionMapper {
   public List<List<Direction>> paramsToDirection(final String directionsParams) {
 
     // Build and returns result directions list.
-    return Stream.of(directionsParams.split(MowitnowConstant.MOWERS_SEPARATOR))
+    return Pattern.compile(MowitnowConstant.MOWERS_SEPARATOR).splitAsStream(directionsParams)
         .map(this::toDirection).collect(Collectors.toList());
   }
 

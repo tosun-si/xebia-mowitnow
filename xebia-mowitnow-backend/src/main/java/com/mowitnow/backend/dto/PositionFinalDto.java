@@ -67,9 +67,7 @@ public class PositionFinalDto implements Serializable {
     // ----------------------------------------------
 
     /**
-     * Constructor with required fields.
-     * 
-     * @param id mower ID
+     * Constructor without parameter.
      */
     public Builder() {
       // An Empty constructor.
@@ -92,7 +90,7 @@ public class PositionFinalDto implements Serializable {
     /**
      * Build {@link PositionFinalDto} by {@link Builder}.
      * 
-     * @return mower
+     * @return final position of an mower
      */
     public PositionFinalDto build() {
       return new PositionFinalDto(this);
