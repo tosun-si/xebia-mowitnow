@@ -63,7 +63,7 @@ public final class PositionFactory {
   /**
    * Final method that allows to create a {@link Position} object by the given
    * {@link Direction}.<br>
-   * This method find a position supplier that is associate to direction and execute this supplier
+   * This method find a position supplier that is associated to direction and execute this supplier
    * (lazy evaluation) in order to return final person object.
    * 
    * @param direction current direction

@@ -1,7 +1,8 @@
 package com.mowitnow.backend.domain.type;
 
+
 import com.mowitnow.backend.domain.Position;
-import com.mowitnow.backend.factory.PositionFactory;
+import com.mowitnow.backend.helper.PositionHelper;
 
 /**
  * Contains all possibles mower orientations (N, E, W, S).
@@ -19,12 +20,11 @@ public enum Orientation {
     public Position getNewPosition(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Build and returns a map with all possible positions after applying the given direction.
-      return PositionFactory.builder()
-          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.W))
-          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.E))
-          .register(Direction.A, () -> new Position(coordinateX, coordinateY + 1, Orientation.N))
-          .create(direction);
+      // Applies all possible positions and gets the good position in list by the given direction.
+      return PositionHelper.INSTANCE.getPosition(direction,
+          () -> new Position(coordinateX, coordinateY, Orientation.W),
+          () -> new Position(coordinateX, coordinateY, Orientation.E),
+          () -> new Position(coordinateX, coordinateY + 1, Orientation.N));
     }
   },
   E {
@@ -32,12 +32,11 @@ public enum Orientation {
     public Position getNewPosition(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Build and returns a map with all possible positions after applying the given direction.
-      return PositionFactory.builder()
-          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.N))
-          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.S))
-          .register(Direction.A, () -> new Position(coordinateX + 1, coordinateY, Orientation.E))
-          .create(direction);
+      // Applies all possible positions and gets the good position in list by the given direction.
+      return PositionHelper.INSTANCE.getPosition(direction,
+          () -> new Position(coordinateX, coordinateY, Orientation.N),
+          () -> new Position(coordinateX, coordinateY, Orientation.S),
+          () -> new Position(coordinateX + 1, coordinateY, Orientation.E));
     }
   },
   W {
@@ -45,12 +44,11 @@ public enum Orientation {
     public Position getNewPosition(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Build and returns a map with all possible positions after applying the given direction.
-      return PositionFactory.builder()
-          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.S))
-          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.N))
-          .register(Direction.A, () -> new Position(coordinateX - 1, coordinateY, Orientation.W))
-          .create(direction);
+      // Applies all possible positions and gets the good position in list by the given direction.
+      return PositionHelper.INSTANCE.getPosition(direction,
+          () -> new Position(coordinateX, coordinateY, Orientation.S),
+          () -> new Position(coordinateX, coordinateY, Orientation.N),
+          () -> new Position(coordinateX - 1, coordinateY, Orientation.W));
     }
   },
   S {
@@ -58,12 +56,11 @@ public enum Orientation {
     public Position getNewPosition(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Build and returns a map with all possible positions after applying the given direction.
-      return PositionFactory.builder()
-          .register(Direction.G, () -> new Position(coordinateX, coordinateY, Orientation.E))
-          .register(Direction.D, () -> new Position(coordinateX, coordinateY, Orientation.W))
-          .register(Direction.A, () -> new Position(coordinateX, coordinateY - 1, Orientation.S))
-          .create(direction);
+      // Applies all possible positions and gets the good position in list by the given direction.
+      return PositionHelper.INSTANCE.getPosition(direction,
+          () -> new Position(coordinateX, coordinateY, Orientation.E),
+          () -> new Position(coordinateX, coordinateY, Orientation.W),
+          () -> new Position(coordinateX, coordinateY - 1, Orientation.S));
     }
   };
 
