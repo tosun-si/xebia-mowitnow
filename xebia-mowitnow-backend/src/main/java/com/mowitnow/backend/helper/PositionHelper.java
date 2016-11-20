@@ -2,9 +2,6 @@ package com.mowitnow.backend.helper;
 
 import java.util.function.Supplier;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Direction;
 import com.mowitnow.backend.factory.PositionFactory;
@@ -18,9 +15,6 @@ public enum PositionHelper {
 
   // Single instance.
   INSTANCE;
-
-  /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(PositionHelper.class);
 
   // ----------------------------------------------
   // Public methods
