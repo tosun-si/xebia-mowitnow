@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Maps;
+
 import com.mowitnow.backend.domain.Mower;
 import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Direction;
@@ -84,7 +85,7 @@ public enum MowerHelper {
     final Position lastPosition = mowerPosition.get(mower.getId());
 
     // Gets new position by last position, current direction and x/y coordinates.
-    final Position newPosition = lastPosition.getOrientation().getNewPosition(direction,
+    final Position newPosition = lastPosition.getOrientation().moveMower(direction,
         lastPosition.getCoordinateX(), lastPosition.getCoordinateY());
 
     // We add next position if new x and y coordinates are in surface.

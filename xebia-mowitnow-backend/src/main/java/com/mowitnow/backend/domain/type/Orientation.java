@@ -17,10 +17,9 @@ public enum Orientation {
 
   N {
     @Override
-    public Position getNewPosition(final Direction direction, final int coordinateX,
+    public Position moveMower(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Applies all possible positions and gets the good position in list by the given direction.
       return PositionHelper.INSTANCE.getPosition(direction,
           () -> new Position(coordinateX, coordinateY, Orientation.W),
           () -> new Position(coordinateX, coordinateY, Orientation.E),
@@ -29,10 +28,9 @@ public enum Orientation {
   },
   E {
     @Override
-    public Position getNewPosition(final Direction direction, final int coordinateX,
+    public Position moveMower(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Applies all possible positions and gets the good position in list by the given direction.
       return PositionHelper.INSTANCE.getPosition(direction,
           () -> new Position(coordinateX, coordinateY, Orientation.N),
           () -> new Position(coordinateX, coordinateY, Orientation.S),
@@ -41,10 +39,9 @@ public enum Orientation {
   },
   W {
     @Override
-    public Position getNewPosition(final Direction direction, final int coordinateX,
+    public Position moveMower(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Applies all possible positions and gets the good position in list by the given direction.
       return PositionHelper.INSTANCE.getPosition(direction,
           () -> new Position(coordinateX, coordinateY, Orientation.S),
           () -> new Position(coordinateX, coordinateY, Orientation.N),
@@ -53,10 +50,9 @@ public enum Orientation {
   },
   S {
     @Override
-    public Position getNewPosition(final Direction direction, final int coordinateX,
+    public Position moveMower(final Direction direction, final int coordinateX,
         final int coordinateY) {
 
-      // Applies all possible positions and gets the good position in list by the given direction.
       return PositionHelper.INSTANCE.getPosition(direction,
           () -> new Position(coordinateX, coordinateY, Orientation.E),
           () -> new Position(coordinateX, coordinateY, Orientation.W),
@@ -69,14 +65,14 @@ public enum Orientation {
   // ----------------------------------------------
 
   /**
-   * Allows from the given direction and x/y coordinates, to build and returns new result position.
-   * A {@link Position} contains new orientation (N,E,W,S) and new x/y coordinates.
+   * Allows from the given direction and x/y coordinates, to moveMower mower and returns new result
+   * position. A {@link Position} contains new orientation (N,E,W,S) and new x/y coordinates.
    * 
    * @param direction direction
    * @param coordinateX x coordinate
    * @param coordinateY y coordinate
    * @return {@link Position} result position
    */
-  public abstract Position getNewPosition(final Direction direction, final int coordinateX,
+  public abstract Position moveMower(final Direction direction, final int coordinateX,
       final int coordinateY);
 }
