@@ -27,4 +27,32 @@ public interface IApplicationParamService {
    * @return {@link String} expected result positions parameters
    */
   String getExpectedPositions();
+
+  /**
+   * Get a parameter that represents horizontal X limit of garden.
+   *
+   * @return {@link String} horizontal X limit of garden
+   */
+  String getGardenHorizontalLimitMin();
+
+  /**
+   * Get a parameter that represents horizontal Y limit of garden.
+   *
+   * @return {@link String} horizontal Y limit of garden
+   */
+  String getGardenHorizontalLimitMax();
+
+  /**
+   * Get a parameter that represents vertical X limit of garden.
+   *
+   * @return {@link String} vertical X limit of garden
+   */
+  String getGardenVerticalLimitMin();
+
+  /**
+   * Get a parameter that represents vertical Y limit of garden.
+   *
+   * @return {@link String} vertical Y limit of garden
+   */
+  String getGardenVerticalLimitMax();
 }

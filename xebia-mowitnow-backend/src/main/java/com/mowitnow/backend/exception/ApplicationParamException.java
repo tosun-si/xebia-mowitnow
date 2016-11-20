@@ -17,6 +17,13 @@ public class ApplicationParamException extends Exception {
   // ----------------------------------------------
 
   /**
+   * Constructor without parameters.
+   */
+  public ApplicationParamException() {
+    super();
+  }
+
+  /**
    * Constructor with message.
    * 
    * @param message message

@@ -4,3 +4,12 @@ mower :
     positions: 12N,33E
     directions: GAGAGAGAA,AADAADADDA
     expectedPositions: N13,E51
+
+garden :
+    limit:
+      horizontal:
+        min: 0
+        max: 5
+      vertical:
+        min: 0
+        max: 5

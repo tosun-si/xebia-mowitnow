@@ -1,10 +1,10 @@
 package com.mowitnow.backend.service.impl;
 
-import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.mowitnow.backend.constant.MowitnowConstant;
 import com.mowitnow.backend.exception.ApplicationParamException;
 import com.mowitnow.backend.service.IApplicationParamService;
+import com.mowitnow.backend.validator.Validator;
 
 /**
  * Implementation of {@link IApplicationParamService}.
@@ -37,6 +38,15 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
   @Value("${mower.expectedPositions}")
   private String expectedPositions;
 
+  @Value("${garden.limit.horizontal.min}")
+  private String gardenHorizontalLimitMin;
+  @Value("${garden.limit.horizontal.max}")
+  private String gardenHorizontalLimitMax;
+  @Value("${garden.limit.vertical.min}")
+  private String gardenVerticalLimitMin;
+  @Value("${garden.limit.vertical.max}")
+  private String gardenVerticalLimitMax;
+
   // ----------------------------------------------
   // Init
   // ----------------------------------------------
@@ -51,22 +61,54 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
   public void init() throws ApplicationParamException {
     LOGGER.debug("Initializing application parameters...");
 
-    // Checks if mandatory fields are not empty.
-    Optional.ofNullable(this.position).orElseThrow(() -> new ApplicationParamException(
-        "Positions parameters must not be empty in application parameters file"));
-    Optional.ofNullable(this.directions).orElseThrow(() -> new ApplicationParamException(
-        "Directions parameters must not be empty in application parameters file"));
-
-    // Gets a predicate that allows to check if positions length is same to directions length.
-    final Predicate<String> positionsLengthSameDirections =
-        p -> p.split(MowitnowConstant.MOWERS_SEPARATOR).length == this.directions
-            .split(MowitnowConstant.MOWERS_SEPARATOR).length;
-
-    // Via optional apply previous filter, and if after the filter optional is empty, we return an
-    // exception.
-    Optional.of(this.position).filter(positionsLengthSameDirections).orElseThrow(
-        () -> new ApplicationParamException("Positions length must be same to directions length"));
+    // Validates all parameters and gets error messages if it exists validation errors.
+    Validator.of(this)
+        .validate(ApplicationParamServiceImpl::getPosition, StringUtils::isNotEmpty,
+            "Positions parameters should not be empty")
+        .validate(ApplicationParamServiceImpl::getDirections, StringUtils::isNotEmpty,
+            "Directions parameters should not be empty")
+        .validate(ApplicationParamServiceImpl::getExpectedPositions, StringUtils::isNotEmpty,
+            "Expected positions parameters should not be empty")
+        .validate(Function.identity(), this::positionsLengthSameDirections,
+            "Positions length must be same to directions length")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMin, StringUtils::isNotEmpty,
+            "Garden horizontal limit min should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMin, StringUtils::isNumeric,
+            "Garden horizontal limit min should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMax, StringUtils::isNotEmpty,
+            "Garden horizontal limit max should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMax, StringUtils::isNumeric,
+            "Garden horizontal limit max should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMin, StringUtils::isNotEmpty,
+            "Garden vertical limit min should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMin, StringUtils::isNumeric,
+            "Garden vertical limit min should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNotEmpty,
+            "Garden vertical limit max should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNumeric,
+            "Garden vertical limit max should not be in type numeric")
+        .get();
   }
+
+  // ----------------------------------------------
+  // Private methods
+  // ----------------------------------------------
+
+  /**
+   * Checks if positions length is same to directions length.
+   * 
+   * @param param current service that contains parameters
+   * @return boolean for result
+   */
+  private boolean positionsLengthSameDirections(final ApplicationParamServiceImpl param) {
+    return param.getPosition() != null && param.getDirections() != null
+        && param.getPosition().split(MowitnowConstant.MOWERS_SEPARATOR).length == param
+            .getDirections().split(MowitnowConstant.MOWERS_SEPARATOR).length;
+  }
+
+  // ----------------------------------------------
+  // Getters/setters
+  // ----------------------------------------------
 
   @Override
   public String getDirections() {
@@ -89,5 +131,45 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
   @Override
   public String getExpectedPositions() {
     return this.expectedPositions;
+  }
+
+  public void setExpectedPositions(String expectedPositions) {
+    this.expectedPositions = expectedPositions;
+  }
+
+  public void setGardenHorizontalLimitMin(String gardenHorizontalLimitMin) {
+    this.gardenHorizontalLimitMin = gardenHorizontalLimitMin;
+  }
+
+  public void setGardenHorizontalLimitMax(String gardenHorizontalLimitMax) {
+    this.gardenHorizontalLimitMax = gardenHorizontalLimitMax;
+  }
+
+  public void setGardenVerticalLimitMin(String gardenVerticalLimitMin) {
+    this.gardenVerticalLimitMin = gardenVerticalLimitMin;
+  }
+
+  public void setGardenVerticalLimitMax(String gardenVerticalLimitMax) {
+    this.gardenVerticalLimitMax = gardenVerticalLimitMax;
+  }
+
+  @Override
+  public String getGardenHorizontalLimitMin() {
+    return gardenHorizontalLimitMin;
+  }
+
+  @Override
+  public String getGardenHorizontalLimitMax() {
+    return gardenHorizontalLimitMax;
+  }
+
+  @Override
+  public String getGardenVerticalLimitMin() {
+    return gardenVerticalLimitMin;
+  }
+
+  @Override
+  public String getGardenVerticalLimitMax() {
+    return gardenVerticalLimitMax;
   }
 }

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
 import com.mowitnow.backend.constant.MowitnowConstant;
+import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Orientation;
 import com.mowitnow.backend.dto.PositionFinalDto;
 
@@ -69,5 +70,65 @@ public class MowerServiceTest extends AbstractTest {
 
       index++;
     }
+  }
+
+  @Test
+  public void whenMowerHasCoordinatesXAndYIntoGarden_ExpectReturnTrue() {
+
+    // Tests data.
+    final Integer coordinateX = 1;
+    final Integer coordinateY = 2;
+    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
+
+    // Calls mower helper by given parameters.
+    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
+
+    // Asserts.
+    assertThat(isIntoGarden).isTrue();
+  }
+
+  @Test
+  public void whenMowerHasCoordinateXNotIntoGarden_ExpectReturnFalse() {
+
+    // Tests data.
+    final Integer coordinateX = 6;
+    final Integer coordinateY = 2;
+    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
+
+    // Calls mower helper by given parameters.
+    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
+
+    // Asserts.
+    assertThat(isIntoGarden).isFalse();
+  }
+
+  @Test
+  public void whenMowerHasCoordinateYNotIntoGarden_ExpectReturnFalse() {
+
+    // Tests data.
+    final Integer coordinateX = 5;
+    final Integer coordinateY = -1;
+    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
+
+    // Calls mower helper by given parameters.
+    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
+
+    // Asserts.
+    assertThat(isIntoGarden).isFalse();
+  }
+
+  @Test
+  public void whenMowerHasCoordinatesXAndYNotIntoGarden_ExpectReturnFalse() {
+
+    // Tests data.
+    final Integer coordinateX = 6;
+    final Integer coordinateY = -1;
+    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
+
+    // Calls mower helper by given parameters.
+    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
+
+    // Asserts.
+    assertThat(isIntoGarden).isFalse();
   }
 }

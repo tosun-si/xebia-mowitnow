@@ -3,6 +3,7 @@ package com.mowitnow.backend.service;
 import java.util.List;
 
 import com.mowitnow.backend.domain.Mower;
+import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.dto.PositionFinalDto;
 
 /**
@@ -19,4 +20,13 @@ public interface IMowerService {
    * @return final {@link PositionFinalDto} list
    */
   List<PositionFinalDto> getFinalPositions();
+
+  /**
+   * Checks if a mower is in garden surface from its x/y coordinates. That coordinates are given
+   * by{@link Position} object. The garden limits are configured in application parameter file.
+   *
+   * @param position current position that contains x, y coordinate
+   * @return boolean for result
+   */
+  boolean checkIntoGarden(final Position position);
 }
