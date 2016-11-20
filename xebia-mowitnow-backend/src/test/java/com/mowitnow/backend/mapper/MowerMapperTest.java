@@ -1,8 +1,9 @@
 package com.mowitnow.backend.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 
-import org.fest.assertions.Assertions;
 import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
@@ -29,6 +30,6 @@ public class MowerMapperTest extends AbstractTest {
         MowerMapper.INSTANCE.paramsToMowers(directionsParams, positionParams);
 
     // Asserts.
-    Assertions.assertThat(mowers).isNotNull().isNotEmpty().hasSize(mowerNumber);
+    assertThat(mowers).isNotNull().isNotEmpty().hasSize(mowerNumber);
   }
 }

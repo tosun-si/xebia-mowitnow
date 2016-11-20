@@ -1,6 +1,7 @@
 package com.mowitnow.backend.helper;
 
-import org.fest.assertions.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
@@ -26,7 +27,7 @@ public class MowerHelperTest extends AbstractTest {
     final boolean isInSurface = MowerHelper.INSTANCE.checkInSurface(position);
 
     // Asserts.
-    Assertions.assertThat(isInSurface).isTrue();
+    assertThat(isInSurface).isTrue();
   }
 
   @Test
@@ -41,7 +42,7 @@ public class MowerHelperTest extends AbstractTest {
     final boolean isInSurface = MowerHelper.INSTANCE.checkInSurface(position);
 
     // Asserts.
-    Assertions.assertThat(isInSurface).isFalse();
+    assertThat(isInSurface).isFalse();
   }
 
   @Test
@@ -56,7 +57,7 @@ public class MowerHelperTest extends AbstractTest {
     final boolean isInSurface = MowerHelper.INSTANCE.checkInSurface(position);
 
     // Asserts.
-    Assertions.assertThat(isInSurface).isFalse();
+    assertThat(isInSurface).isFalse();
   }
 
   @Test
@@ -71,6 +72,6 @@ public class MowerHelperTest extends AbstractTest {
     final boolean isInSurface = MowerHelper.INSTANCE.checkInSurface(position);
 
     // Asserts.
-    Assertions.assertThat(isInSurface).isFalse();
+    assertThat(isInSurface).isFalse();
   }
 }

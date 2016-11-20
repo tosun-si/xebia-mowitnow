@@ -1,10 +1,11 @@
 package com.mowitnow.backend.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fest.assertions.Assertions;
 import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
@@ -39,7 +40,7 @@ public class MowerServiceTest extends AbstractTest {
     final List<PositionFinalDto> finalPositions = mowerService.getFinalPositions();
 
     // Asserts.
-    Assertions.assertThat(finalPositions).isNotNull().isNotEmpty();
+    assertThat(finalPositions).isNotNull().isNotEmpty();
 
     // Gets expected result positions in application parameters file.
     final String[] expectedPositions =
@@ -56,14 +57,14 @@ public class MowerServiceTest extends AbstractTest {
       final String expectedCoordinateY = String.valueOf(expectedPosition.charAt(2));
 
       // Asserts.
-      Assertions.assertThat(finalPosition).isNotNull();
-      Assertions.assertThat(finalPosition.getMower()).isNotNull();
-      Assertions.assertThat(finalPosition.getMower().getId()).isNotNull();
-      Assertions.assertThat(finalPosition.getPosition().getOrientation()).isNotNull()
+      assertThat(finalPosition).isNotNull();
+      assertThat(finalPosition.getMower()).isNotNull();
+      assertThat(finalPosition.getMower().getId()).isNotNull();
+      assertThat(finalPosition.getPosition().getOrientation()).isNotNull()
           .isEqualTo(expectedOrientation);
-      Assertions.assertThat(finalPosition.getPosition().getCoordinateX().toString()).isNotNull()
+      assertThat(finalPosition.getPosition().getCoordinateX().toString()).isNotNull()
           .isEqualTo(expectedCoordinateX);
-      Assertions.assertThat(finalPosition.getPosition().getCoordinateY().toString()).isNotNull()
+      assertThat(finalPosition.getPosition().getCoordinateY().toString()).isNotNull()
           .isEqualTo(expectedCoordinateY);
 
       index++;

@@ -1,8 +1,9 @@
 package com.mowitnow.backend.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 
-import org.fest.assertions.Assertions;
 import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
@@ -25,6 +26,6 @@ public class PositionMapperTest extends AbstractTest {
     final List<Position> positions = PositionMapper.INSTANCE.paramsToPositions(positionParams);
 
     // Asserts.
-    Assertions.assertThat(positions).isNotNull().isNotEmpty().hasSize(2);
+    assertThat(positions).isNotNull().isNotEmpty().hasSize(2);
   }
 }
