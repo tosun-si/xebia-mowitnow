@@ -63,30 +63,18 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
 
     // Validates all parameters and gets error messages if it exists validation errors.
     Validator.of(this)
-        .validate(ApplicationParamServiceImpl::getPosition, StringUtils::isNotEmpty,
-            "Positions parameters should not be empty")
-        .validate(ApplicationParamServiceImpl::getDirections, StringUtils::isNotEmpty,
-            "Directions parameters should not be empty")
-        .validate(ApplicationParamServiceImpl::getExpectedPositions, StringUtils::isNotEmpty,
-            "Expected positions parameters should not be empty")
-        .validate(Function.identity(), this::positionsLengthSameDirections,
-            "Positions length must be same to directions length")
-        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMin, StringUtils::isNotEmpty,
-            "Garden horizontal limit min should not be empty")
-        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMin, StringUtils::isNumeric,
-            "Garden horizontal limit min should not be in type numeric")
-        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMax, StringUtils::isNotEmpty,
-            "Garden horizontal limit max should not be empty")
-        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMax, StringUtils::isNumeric,
-            "Garden horizontal limit max should not be in type numeric")
-        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMin, StringUtils::isNotEmpty,
-            "Garden vertical limit min should not be empty")
-        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMin, StringUtils::isNumeric,
-            "Garden vertical limit min should not be in type numeric")
-        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNotEmpty,
-            "Garden vertical limit max should not be empty")
-        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNumeric,
-            "Garden vertical limit max should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getPosition, StringUtils::isNotEmpty, "Positions parameters should not be empty")
+        .validate(ApplicationParamServiceImpl::getDirections, StringUtils::isNotEmpty, "Directions parameters should not be empty")
+        .validate(ApplicationParamServiceImpl::getExpectedPositions, StringUtils::isNotEmpty, "Expected positions parameters should not be empty")
+        .validate(Function.identity(), this::positionsLengthSameDirections, "Positions length must be same to directions length")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMin, StringUtils::isNotEmpty, "Garden horizontal limit min should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMin, StringUtils::isNumeric, "Garden horizontal limit min should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMax, StringUtils::isNotEmpty, "Garden horizontal limit max should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenHorizontalLimitMax, StringUtils::isNumeric, "Garden horizontal limit max should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMin, StringUtils::isNotEmpty, "Garden vertical limit min should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMin, StringUtils::isNumeric, "Garden vertical limit min should not be in type numeric")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNotEmpty, "Garden vertical limit max should not be empty")
+        .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNumeric, "Garden vertical limit max should not be in type numeric")
         .get();
   }
 

@@ -23,6 +23,9 @@ import com.mowitnow.backend.mapper.MowerMapper;
 import com.mowitnow.backend.service.IApplicationParamService;
 import com.mowitnow.backend.service.IMowerService;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Implementation of {@link IMowerService}.
  * 
@@ -30,6 +33,7 @@ import com.mowitnow.backend.service.IMowerService;
  * @author Mazlum TOSUN
  */
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class MowerServiceImpl implements IMowerService {
 
   /** Logger. */
@@ -39,8 +43,7 @@ public class MowerServiceImpl implements IMowerService {
   // Fields
   // ----------------------------------------------
 
-  @Inject
-  private IApplicationParamService applicationParamService;
+  private final @NonNull IApplicationParamService applicationParamService;
 
   private List<Mower> mowers;
 
@@ -70,7 +73,7 @@ public class MowerServiceImpl implements IMowerService {
     LOGGER.debug("Getting mowers final position...");
 
     // Transforms mowers to object that contains mower last positions.
-    return this.getMowers().stream().map(this::getMowerFinalPosition).collect(Collectors.toList());
+    return this.getMowers().stream().map(this::getFinalPosition).collect(Collectors.toList());
   }
 
   @Override
@@ -104,48 +107,52 @@ public class MowerServiceImpl implements IMowerService {
    *
    * @return {@link PositionFinalDto} object that contains mower last position and mower data
    */
-  private PositionFinalDto getMowerFinalPosition(final Mower mower) {
+  private PositionFinalDto getFinalPosition(final Mower mower) {
 
     LOGGER.debug("Getting mower [{}] final position...", mower.getId());
 
     // Puts initial position in result map. Correspond to initial position of mower.
-    final Map<Integer, Position> finalPosition = Maps.newHashMap();
-    finalPosition.put(mower.getId(), mower.getPosition());
+    final Map<Integer, Position> initialPosition = Maps.newHashMap();
+    initialPosition.put(mower.getId(), mower.getPosition());
 
     // Gets last element in stream. It corresponds to position of last direction (final position).
-    return mower.getDirections().stream().map(d -> this.getNextPosition(mower, d, finalPosition))
-        .reduce((d1, d2) -> d2).orElse(null);
+    return mower.getDirections().stream()
+        .map(d -> this.calculateNextPosition(mower, d, initialPosition)).reduce((d1, d2) -> d2)
+        .get();
   }
 
   /**
-   * Factory method that allows to get next position of {@link Mower} by current position of mower,
-   * current direction and coordinate X/Y.
+   * Factory method that allows to calculate and get next position of {@link Mower} by current
+   * position of mower, current direction and coordinate X/Y.
    *
    * @param mower mower
    * @param direction direction
    * @param mowerPosition mower current position
    * @return {@link PositionFinalDto} object that contains mower next position and mower data
    */
-  private PositionFinalDto getNextPosition(final Mower mower, final Direction direction,
+  private PositionFinalDto calculateNextPosition(final Mower mower, final Direction direction,
       final Map<Integer, Position> mowerPosition) {
 
-    // Gets last position of mower.
-    final Position lastPosition = mowerPosition.get(mower.getId());
+    // Gets current position of mower.
+    final Position currentPosition = mowerPosition.get(mower.getId());
 
-    // Gets new position by last position, current direction and x/y coordinates.
-    final Position newPosition = lastPosition.getOrientation().moveMower(direction,
-        lastPosition.getCoordinateX(), lastPosition.getCoordinateY());
+    // Moves mower and gets next position from current position, direction and x/y coordinates.
+    final Position nextPosition = currentPosition.getOrientation().moveMower(direction,
+        currentPosition.getCoordinateX(), currentPosition.getCoordinateY());
 
-    // We add next position if new x and y coordinates are in surface.
-    final Optional<PositionFinalDto> nextPosition =
-        Optional.of(newPosition).filter(this::checkIntoGarden)
+    // Checks if the next position is in the garden and build an object that associates mower to the
+    // next position.
+    final Optional<PositionFinalDto> nextPositionInGarden =
+        Optional.of(nextPosition).filter(this::checkIntoGarden)
             .map(p -> new PositionFinalDto.Builder().mower(mower).position(p).build());
 
     // If element is present and is in surface, we put position in map.
-    nextPosition.ifPresent(p -> mowerPosition.put(mower.getId(), newPosition));
+    nextPositionInGarden.ifPresent(p -> mowerPosition.put(mower.getId(), nextPosition));
 
-    // Returns optional that contains next position result.
-    return nextPosition.orElse(null);
+    // Returns optional that contains next position. If next position isn't in the garden, we return
+    // current position.
+    return nextPositionInGarden.orElseGet(
+        () -> new PositionFinalDto.Builder().mower(mower).position(currentPosition).build());
   }
 
   /**
