@@ -1,26 +1,14 @@
 package com.mowitnow.backend.constant;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Constants that shared in application.
  * 
  * @author Mazlum TOSUN
  */
+@UtilityClass
 public final class MowitnowConstant {
 
-  // ----------------------------------------------
-  // Constants
-  // ----------------------------------------------
-
   public static final String MOWERS_SEPARATOR = ",";
-
-  // ----------------------------------------------
-  // Private constructor
-  // ----------------------------------------------
-
-  /**
-   * Empty constructor for prevent instantiation.
-   */
-  private MowitnowConstant() {
-    // An empty constructor.
-  }
 }

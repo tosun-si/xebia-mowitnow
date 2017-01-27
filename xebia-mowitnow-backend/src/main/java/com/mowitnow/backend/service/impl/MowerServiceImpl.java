@@ -144,15 +144,15 @@ public class MowerServiceImpl implements IMowerService {
     // next position.
     final Optional<PositionFinalDto> nextPositionInGarden =
         Optional.of(nextPosition).filter(this::checkIntoGarden)
-            .map(p -> new PositionFinalDto.Builder().mower(mower).position(p).build());
+            .map(p -> PositionFinalDto.builder().mower(mower).position(p).build());
 
     // If element is present and is in surface, we put position in map.
     nextPositionInGarden.ifPresent(p -> mowerPosition.put(mower.getId(), nextPosition));
 
     // Returns optional that contains next position. If next position isn't in the garden, we return
     // current position.
-    return nextPositionInGarden.orElseGet(
-        () -> new PositionFinalDto.Builder().mower(mower).position(currentPosition).build());
+    return nextPositionInGarden
+        .orElseGet(() -> PositionFinalDto.builder().mower(mower).position(currentPosition).build());
   }
 
   /**

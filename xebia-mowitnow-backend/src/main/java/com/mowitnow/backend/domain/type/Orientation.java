@@ -11,10 +11,6 @@ import com.mowitnow.backend.helper.PositionHelper;
  */
 public enum Orientation {
 
-  // ----------------------------------------------
-  // Enumeration
-  // ----------------------------------------------
-
   N {
     @Override
     public Position moveMower(final Direction direction, final int coordinateX,

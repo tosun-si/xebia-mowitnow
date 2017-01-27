@@ -7,9 +7,5 @@ package com.mowitnow.backend.domain.type;
  */
 public enum Direction {
 
-  // ----------------------------------------------
-  // Enumerations
-  // ----------------------------------------------
-
   G, D, A
 }

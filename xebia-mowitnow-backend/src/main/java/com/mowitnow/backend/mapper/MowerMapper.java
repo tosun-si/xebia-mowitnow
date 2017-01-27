@@ -45,7 +45,7 @@ public enum MowerMapper {
 
     // Build and gets mowers by mower number. Directions and positions are in same order to mower.
     // We add each directions/positions to appropriate mower.
-    return IntStream.range(0, mowerNumber).mapToObj(n -> new Mower.Builder(n)
+    return IntStream.range(0, mowerNumber).mapToObj(n -> Mower.builder().id(n)
         .position(positions.get(n)).directions(groupedDirections.get(n)).build())
         .collect(Collectors.toList());
   }

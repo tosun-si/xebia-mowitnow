@@ -81,7 +81,7 @@ public enum PositionMapper {
   private Map<Integer, Consumer<String>> getPositionConsumers(final Position position) {
 
     // Returns consumers associated to index.
-    return new ImmutableMap.Builder<Integer, Consumer<String>>().put(1, position::setCoordinateX)
-        .put(2, position::setCoordinateY).put(3, position::setOrientation).build();
+    return new ImmutableMap.Builder<Integer, Consumer<String>>().put(1, position::coordinateX)
+        .put(2, position::coordinateY).put(3, position::orientation).build();
   }
 }
