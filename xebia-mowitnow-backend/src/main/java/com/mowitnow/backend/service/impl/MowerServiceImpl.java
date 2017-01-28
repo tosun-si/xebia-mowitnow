@@ -91,9 +91,9 @@ public class MowerServiceImpl implements IMowerService {
 
     // Checks if the given x/y coordinates are between 0 and 5, via streams.
     return IntStream.rangeClosed(gardenHorizontalLimitMin, gardenHorizontalLimitMax)
-        .anyMatch(c -> c == position.getCoordinateX())
+        .anyMatch(position.getCoordinateX()::equals)
         && IntStream.rangeClosed(gardenVerticalLimitMin, gardenVerticalLimitMax)
-            .anyMatch(c -> c == position.getCoordinateY());
+            .anyMatch(position.getCoordinateY()::equals);
   }
 
   // ----------------------------------------------
