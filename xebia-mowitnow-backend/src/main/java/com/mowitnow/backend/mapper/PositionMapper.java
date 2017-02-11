@@ -1,17 +1,14 @@
 package com.mowitnow.backend.mapper;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-import com.google.common.collect.ImmutableMap;
 
 import com.mowitnow.backend.constant.MowitnowConstant;
 import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.dto.PositionFinalDto;
+import com.mowitnow.backend.function.composition.PositionModifier;
 
 /**
  * Mapper that allows to transform object that concerns {@link PositionFinalDto}.
@@ -62,26 +59,25 @@ public enum PositionMapper {
     // coordinate, the second corresponds to Y coordinate and the last corresponds to orientation.
     // Consumers based on character index, allow to call the appropriate setter of person to create.
     positionParam.chars().mapToObj(i -> (char) i).map(String::valueOf)
-        .forEach(p -> this.getPositionConsumers(position).get(index.incrementAndGet()).accept(p));
+        .forEach(field -> modifyPositionField(index.incrementAndGet(), field, position));
 
     // Returns created position.
     return position;
   }
 
   /**
-   * Allows to associate consumers to index. According to the index, a good setter of the given
-   * {@link Position}, will be called.<br>
-   * First character corresponds to X // coordinate, the second corresponds to Y coordinate and the
+   * Allows to modify a field of the given {@link Position}. The goal is to associate an action to
+   * an index. According to the index, a good setter of the given {@link Position}, will be
+   * called.<br>
+   * First character corresponds to X coordinate, the second corresponds to Y coordinate and the
    * last corresponds to orientation.<br>
-   * The format of result is [KEY-VALUE] pair => [INDEX-POSITION CONSUMER].
    * 
    * @param position current position
-   * @return map with the following format [KEY-VALUE] pair => [INDEX-POSITION CONSUMER]
    */
-  private Map<Integer, Consumer<String>> getPositionConsumers(final Position position) {
+  private void modifyPositionField(final int index, final String positionField,
+      final Position position) {
 
-    // Returns consumers associated to index.
-    return new ImmutableMap.Builder<Integer, Consumer<String>>().put(1, position::coordinateX)
-        .put(2, position::coordinateY).put(3, position::orientation).build();
+    PositionModifier.from(positionField).modify(1, position::coordinateX)
+        .modify(2, position::coordinateY).modify(3, position::orientation).execute(index);
   }
 }

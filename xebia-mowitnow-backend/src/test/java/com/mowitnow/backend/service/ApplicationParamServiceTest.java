@@ -36,13 +36,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   @Test
   public void whenPositionParamIsNull_ExpectExceptionIsThrown() throws ApplicationParamException {
 
-    // Overrides current position parameter to null in order to simulate an error case.
+    // Given : overrides current position parameter to null in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setPosition(null);
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Positions parameters should not be empty");
   }
@@ -50,13 +50,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   @Test
   public void whenDirectionsParamIsNull_ExpectExceptionIsThrown() throws ApplicationParamException {
 
-    // Overrides current directions parameter to null in order to simulate an error case.
+    // Given : overrides current directions parameter to null in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setDirections(null);
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Directions parameters should not be empty");
   }
@@ -64,13 +64,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   @Test
   public void whenPositionParamIsEmpty_ExpectExceptionIsThrown() throws ApplicationParamException {
 
-    // Overrides current position parameter to null in order to simulate an error case.
+    // Given : overrides current position parameter to null in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setPosition("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Positions parameters should not be empty");
   }
@@ -79,13 +79,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenDirectionsParamIsEmpty_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current directions parameter to null in order to simulate an error case.
+    // Given : overrides current directions parameter to null in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setDirections("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Directions parameters should not be empty");
   }
@@ -94,16 +94,16 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenPositionNumberIsDifferentToDirections_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current position and directions parameter with position number different to
+    // Given : overrides current position and directions parameter with position number different to
     // directions, in order to simulate an exception.
     ((ApplicationParamServiceImpl) applicationParamService).setPosition("12N,33E");
     ((ApplicationParamServiceImpl) applicationParamService)
         .setDirections("GAGAGAGAA,AADAADADDA,GGADDADGDG");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Positions length must be same to directions length");
   }
@@ -112,13 +112,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void wheneExpectedPositionIsNull_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setExpectedPositions(null);
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Expected positions parameters should not be empty");
   }
@@ -127,13 +127,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void wheneExpectedPositionIsEmpty_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setExpectedPositions("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Expected positions parameters should not be empty");
   }
@@ -142,13 +142,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenHorizontalLimitMinIsNull_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin(null);
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden horizontal limit min should not be empty");
   }
@@ -157,13 +157,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenHorizontalLimitMinIsEmpty_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden horizontal limit min should not be empty");
   }
@@ -172,13 +172,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenHorizontalLimitMinIsNotNumeric_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin("GTG");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden horizontal limit min should not be in type numeric");
   }
@@ -187,13 +187,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenHorizontalLimitMaxIsNull_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax(null);
 
-    // Action that can is throwable.
+    // When
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden horizontal limit max should not be empty");
   }
@@ -202,13 +202,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenHorizontalLimitMaxIsEmpty_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden horizontal limit max should not be empty");
   }
@@ -217,13 +217,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenHorizontalLimitMaxIsNotNumeric_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax("GTG");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden horizontal limit max should not be in type numeric");
   }
@@ -232,13 +232,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenVerticalLimitMinIsNull_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin(null);
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden vertical limit min should not be empty");
   }
@@ -247,13 +247,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenVerticalLimitMinIsEmpty_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given: overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden vertical limit min should not be empty");
   }
@@ -262,13 +262,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenVerticalLimitMinIsNotNumeric_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin("GTG");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden vertical limit min should not be in type numeric");
   }
@@ -277,13 +277,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenVerticalLimitMaxIsNull_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax(null);
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden vertical limit max should not be empty");
   }
@@ -292,13 +292,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenVerticalLimitMaxIsEmpty_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax("");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden vertical limit max should not be empty");
   }
@@ -307,13 +307,13 @@ public class ApplicationParamServiceTest extends AbstractTest {
   public void whenGardenVerticalLimitMaxIsNotNumeric_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Overrides current parameter in order to simulate an error case.
+    // Given : overrides current parameter in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax("GTG");
 
-    // Action that can is throwable.
+    // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
-    // Assert.
+    // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
         .hasStackTraceContaining("Garden vertical limit max should not be in type numeric");
   }

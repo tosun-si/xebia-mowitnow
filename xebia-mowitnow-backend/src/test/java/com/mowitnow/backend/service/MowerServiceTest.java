@@ -50,14 +50,14 @@ public class MowerServiceTest extends AbstractTest {
     int index = 0;
     for (PositionFinalDto finalPosition : finalPositions) {
 
-      // Gets expected positions in separate variables.
+      // Given.
       final String expectedPosition = expectedPositions[index];
       final Orientation expectedOrientation =
           Orientation.valueOf(String.valueOf(expectedPosition.charAt(0)));
       final String expectedCoordinateX = String.valueOf(expectedPosition.charAt(1));
       final String expectedCoordinateY = String.valueOf(expectedPosition.charAt(2));
 
-      // Asserts.
+      // Then.
       assertThat(finalPosition).isNotNull();
       assertThat(finalPosition.getMower()).isNotNull();
       assertThat(finalPosition.getMower().getId()).isNotNull();
@@ -75,60 +75,60 @@ public class MowerServiceTest extends AbstractTest {
   @Test
   public void whenMowerHasCoordinatesXAndYIntoGarden_ExpectReturnTrue() {
 
-    // Tests data.
+    // Given.
     final Integer coordinateX = 1;
     final Integer coordinateY = 2;
     final Position position = new Position(coordinateX, coordinateY, Orientation.N);
 
-    // Calls mower helper by given parameters.
+    // When.
     final boolean isIntoGarden = mowerService.checkIntoGarden(position);
 
-    // Asserts.
+    // Then.
     assertThat(isIntoGarden).isTrue();
   }
 
   @Test
   public void whenMowerHasCoordinateXNotIntoGarden_ExpectReturnFalse() {
 
-    // Tests data.
+    // Given.
     final Integer coordinateX = 6;
     final Integer coordinateY = 2;
     final Position position = new Position(coordinateX, coordinateY, Orientation.N);
 
-    // Calls mower helper by given parameters.
+    // When.
     final boolean isIntoGarden = mowerService.checkIntoGarden(position);
 
-    // Asserts.
+    // Then.
     assertThat(isIntoGarden).isFalse();
   }
 
   @Test
   public void whenMowerHasCoordinateYNotIntoGarden_ExpectReturnFalse() {
 
-    // Tests data.
+    // Given.
     final Integer coordinateX = 5;
     final Integer coordinateY = -1;
     final Position position = new Position(coordinateX, coordinateY, Orientation.N);
 
-    // Calls mower helper by given parameters.
+    // When.
     final boolean isIntoGarden = mowerService.checkIntoGarden(position);
 
-    // Asserts.
+    // Then.
     assertThat(isIntoGarden).isFalse();
   }
 
   @Test
   public void whenMowerHasCoordinatesXAndYNotIntoGarden_ExpectReturnFalse() {
 
-    // Tests data.
+    // Given.
     final Integer coordinateX = 6;
     final Integer coordinateY = -1;
     final Position position = new Position(coordinateX, coordinateY, Orientation.N);
 
-    // Calls mower helper by given parameters.
+    // When.
     final boolean isIntoGarden = mowerService.checkIntoGarden(position);
 
-    // Asserts.
+    // Then.
     assertThat(isIntoGarden).isFalse();
   }
 }

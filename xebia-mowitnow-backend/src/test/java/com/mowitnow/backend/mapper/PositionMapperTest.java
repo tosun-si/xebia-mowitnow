@@ -19,13 +19,13 @@ public class PositionMapperTest extends AbstractTest {
   @Test
   public void whenBuildPositionsByGivenParameters_ExpectSuccess() {
 
-    // Tests data.
+    // Given.
     final String positionParams = "12N,33E";
 
-    // Calls position mapper by given parameters.
+    // When.
     final List<Position> positions = PositionMapper.INSTANCE.paramsToPositions(positionParams);
 
-    // Asserts.
+    // Then.
     assertThat(positions).isNotNull().isNotEmpty().hasSize(2);
   }
 }

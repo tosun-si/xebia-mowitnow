@@ -20,16 +20,16 @@ public class MowerMapperTest extends AbstractTest {
   @Test
   public void whenBuildMowersByGivenParameters_ExpectSuccess() {
 
-    // Tests data.
+    // Given.
     final String directionsParams = "GAGAGAGAA,AADAADADDA";
     final int mowerNumber = directionsParams.split(MowitnowConstant.MOWERS_SEPARATOR).length;
     final String positionParams = "12N,33E";
 
-    // Calls mower mapper by given parameters.
+    // When.
     final List<Mower> mowers =
         MowerMapper.INSTANCE.paramsToMowers(directionsParams, positionParams);
 
-    // Asserts.
+    // Then.
     assertThat(mowers).isNotNull().isNotEmpty().hasSize(mowerNumber);
   }
 }
