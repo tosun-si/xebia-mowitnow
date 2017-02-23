@@ -15,6 +15,8 @@ import com.mowitnow.backend.exception.ApplicationParamException;
 import com.mowitnow.backend.service.IApplicationParamService;
 import com.mowitnow.backend.validator.Validator;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Implementation of {@link IApplicationParamService}.
  * 
@@ -22,10 +24,8 @@ import com.mowitnow.backend.validator.Validator;
  * @author Mazlum TOSUN
  */
 @Service
+@Slf4j
 public class ApplicationParamServiceImpl implements IApplicationParamService {
-
-  /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationParamServiceImpl.class);
 
   // ----------------------------------------------
   // Fields

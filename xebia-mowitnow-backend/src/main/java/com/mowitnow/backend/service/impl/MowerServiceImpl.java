@@ -9,8 +9,6 @@ import java.util.stream.IntStream;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Maps;
@@ -25,6 +23,7 @@ import com.mowitnow.backend.service.IMowerService;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Implementation of {@link IMowerService}.
@@ -34,10 +33,8 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
+@Slf4j
 public class MowerServiceImpl implements IMowerService {
-
-  /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(MowerServiceImpl.class);
 
   // ----------------------------------------------
   // Fields
