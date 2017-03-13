@@ -5,8 +5,6 @@ import java.util.function.Function;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +13,7 @@ import com.mowitnow.backend.exception.ApplicationParamException;
 import com.mowitnow.backend.service.IApplicationParamService;
 import com.mowitnow.backend.validator.Validator;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -24,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Mazlum TOSUN
  */
 @Service
+@Data
 @Slf4j
 public class ApplicationParamServiceImpl implements IApplicationParamService {
 
@@ -92,72 +92,5 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
     return param.getPosition() != null && param.getDirections() != null
         && param.getPosition().split(MowitnowConstant.MOWERS_SEPARATOR).length == param
             .getDirections().split(MowitnowConstant.MOWERS_SEPARATOR).length;
-  }
-
-  // ----------------------------------------------
-  // Getters/setters
-  // ----------------------------------------------
-
-  @Override
-  public String getDirections() {
-    return this.directions;
-  }
-
-  public void setDirections(String directions) {
-    this.directions = directions;
-  }
-
-  @Override
-  public String getPosition() {
-    return this.position;
-  }
-
-  public void setPosition(String position) {
-    this.position = position;
-  }
-
-  @Override
-  public String getExpectedPositions() {
-    return this.expectedPositions;
-  }
-
-  public void setExpectedPositions(String expectedPositions) {
-    this.expectedPositions = expectedPositions;
-  }
-
-  public void setGardenHorizontalLimitMin(String gardenHorizontalLimitMin) {
-    this.gardenHorizontalLimitMin = gardenHorizontalLimitMin;
-  }
-
-  public void setGardenHorizontalLimitMax(String gardenHorizontalLimitMax) {
-    this.gardenHorizontalLimitMax = gardenHorizontalLimitMax;
-  }
-
-  public void setGardenVerticalLimitMin(String gardenVerticalLimitMin) {
-    this.gardenVerticalLimitMin = gardenVerticalLimitMin;
-  }
-
-  public void setGardenVerticalLimitMax(String gardenVerticalLimitMax) {
-    this.gardenVerticalLimitMax = gardenVerticalLimitMax;
-  }
-
-  @Override
-  public String getGardenHorizontalLimitMin() {
-    return gardenHorizontalLimitMin;
-  }
-
-  @Override
-  public String getGardenHorizontalLimitMax() {
-    return gardenHorizontalLimitMax;
-  }
-
-  @Override
-  public String getGardenVerticalLimitMin() {
-    return gardenVerticalLimitMin;
-  }
-
-  @Override
-  public String getGardenVerticalLimitMax() {
-    return gardenVerticalLimitMax;
   }
 }
