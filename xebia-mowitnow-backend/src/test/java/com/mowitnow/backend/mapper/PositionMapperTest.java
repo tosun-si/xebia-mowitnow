@@ -17,7 +17,7 @@ import com.mowitnow.backend.domain.Position;
 public class PositionMapperTest extends AbstractTest {
 
   @Test
-  public void whenBuildPositionsByGivenParameters_ExpectSuccess() {
+  public void givenPositionParams_whenMapToPositions_thenCorrectResultList() {
 
     // Given.
     final String positionParams = "12N,33E";

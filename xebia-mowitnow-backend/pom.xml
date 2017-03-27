@@ -20,6 +20,7 @@
     <properties>
         <java.version>1.8</java.version>
         <assertj.version>3.5.2</assertj.version>
+        <junitparams.version>1.0.6</junitparams.version>
         <guava.version>19.0</guava.version>
         <javax-inject.version>1</javax-inject.version>
     </properties>
@@ -50,7 +51,7 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -82,6 +83,11 @@
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>pl.pragmatists</groupId>
+            <artifactId>JUnitParams</artifactId>
+            <version>${junitparams.version}</version>
         </dependency>
     </dependencies>
 </project>

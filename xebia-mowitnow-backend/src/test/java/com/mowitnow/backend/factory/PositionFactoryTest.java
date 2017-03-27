@@ -11,6 +11,8 @@ import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Direction;
 import com.mowitnow.backend.domain.type.Orientation;
 
+import lombok.val;
+
 /**
  * Allows to test treatments of {@link PositionFactory}.
  * 
@@ -19,12 +21,15 @@ import com.mowitnow.backend.domain.type.Orientation;
 public class PositionFactoryTest extends AbstractTest {
 
   @Test
-  public void whenCreatePositionFromFactoryWithExistDirection_ExpectObjectIsCreated() {
+  public void givenGoodDirection_whenCreatePosition_thenPositionIsCorrectlyCreated() {
 
-    // Given, when.
-    final Position resultPosition =
+    // Given.
+    val direction = Direction.D;
+
+    // When.
+    val resultPosition =
         PositionFactory.builder().register(Direction.D, () -> new Position(2, 5, Orientation.E))
-            .register(Direction.A, () -> new Position(2, 5, Orientation.E)).create(Direction.D);
+            .register(Direction.A, () -> new Position(2, 5, Orientation.E)).create(direction);
 
     // Then.
     assertThat(resultPosition).isNotNull();
@@ -34,7 +39,7 @@ public class PositionFactoryTest extends AbstractTest {
   }
 
   @Test
-  public void whenCreatePositionFromFactoryWithNoExistDirection_ExpectExceptionIsThrown() {
+  public void givenNullDirection_whenCreatePosition_ExpectExceptionIsThrown() {
 
     // Given, when.
     final ThrowingCallable action = () -> PositionFactory.builder()

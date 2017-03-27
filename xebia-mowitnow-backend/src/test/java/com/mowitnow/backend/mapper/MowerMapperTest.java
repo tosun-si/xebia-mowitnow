@@ -18,7 +18,7 @@ import com.mowitnow.backend.domain.Mower;
 public class MowerMapperTest extends AbstractTest {
 
   @Test
-  public void whenBuildMowersByGivenParameters_ExpectSuccess() {
+  public void givenGoodParams_whenMapToMowers_thenCorrectResultList() {
 
     // Given.
     final String directionsParams = "GAGAGAGAA,AADAADADDA";

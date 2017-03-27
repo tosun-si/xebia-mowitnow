@@ -9,6 +9,8 @@ import org.junit.Test;
 import com.mowitnow.backend.AbstractTest;
 import com.mowitnow.backend.domain.Position;
 
+import lombok.val;
+
 /**
  * Allows to test treatments of {@link PositionModifier}.
  * 
@@ -17,14 +19,14 @@ import com.mowitnow.backend.domain.Position;
 public class PositionModifierTest extends AbstractTest {
 
   @Test
-  public void whenModifyPositionFieldWithExistIndex_ExpectSuccess() {
+  public void givenValueAndGoodIndex_whenModifyPositionField_thenFieldIsCorrectlyUpdated() {
 
     // Given.
-    final String positionFieldValue = "8";
-    final int indexField = 2;
+    val positionFieldValue = "8";
+    val indexField = 2;
 
     // When.
-    final Position position = new Position();
+    val position = new Position();
     PositionModifier.from(positionFieldValue).modify(1, position::coordinateX)
         .modify(2, position::coordinateY).execute(indexField);
 
@@ -34,14 +36,14 @@ public class PositionModifierTest extends AbstractTest {
   }
 
   @Test
-  public void whenModifyPositionFieldWithNotExistIndex_ExpectIllegalStateExceptionWasThrown() {
+  public void givenValueAndBadIndex_whenModifyPositionField_thenIllegalStateExceptionIsThrown() {
 
     // Given.
-    final String positionFieldValue = "8";
-    final int indexField = 3;
+    val positionFieldValue = "8";
+    val indexField = 3;
 
     // When.
-    final Position position = new Position();
+    val position = new Position();
     final ThrowingCallable action = () -> PositionModifier.from(positionFieldValue)
         .modify(1, position::coordinateX).modify(2, position::coordinateY).execute(indexField);
 

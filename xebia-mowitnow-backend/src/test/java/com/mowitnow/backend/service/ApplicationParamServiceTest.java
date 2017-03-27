@@ -34,7 +34,8 @@ public class ApplicationParamServiceTest extends AbstractTest {
   // ----------------------------------------------
 
   @Test
-  public void whenPositionParamIsNull_ExpectExceptionIsThrown() throws ApplicationParamException {
+  public void givenNullPositionParam_whenValidateAppParameters_thenExceptionIsThrown()
+      throws ApplicationParamException {
 
     // Given : overrides current position parameter to null in order to simulate an error case.
     ((ApplicationParamServiceImpl) applicationParamService).setPosition(null);
@@ -48,9 +49,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenDirectionsParamIsNull_ExpectExceptionIsThrown() throws ApplicationParamException {
+  public void givenNullDirectionsParam_whenValidateAppParameters_thenExceptionIsThrown()
+      throws ApplicationParamException {
 
-    // Given : overrides current directions parameter to null in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setDirections(null);
 
     // When.
@@ -62,9 +64,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenPositionParamIsEmpty_ExpectExceptionIsThrown() throws ApplicationParamException {
+  public void givenEmptyPositionParam_whenValidateAppParameters_thenExceptionIsThrown()
+      throws ApplicationParamException {
 
-    // Given : overrides current position parameter to null in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setPosition("");
 
     // When.
@@ -76,7 +79,7 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenDirectionsParamIsEmpty_ExpectExceptionIsThrown()
+  public void givenEmptyDirectionsParam_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
     // Given : overrides current directions parameter to null in order to simulate an error case.
@@ -91,11 +94,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenPositionNumberIsDifferentToDirections_ExpectExceptionIsThrown()
+  public void givenPositionNumberDifferentToDirections_whenValidateAppParameters_ExpectExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current position and directions parameter with position number different to
-    // directions, in order to simulate an exception.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setPosition("12N,33E");
     ((ApplicationParamServiceImpl) applicationParamService)
         .setDirections("GAGAGAGAA,AADAADADDA,GGADDADGDG");
@@ -109,10 +111,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void wheneExpectedPositionIsNull_ExpectExceptionIsThrown()
+  public void givenNullExpectedPosition_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setExpectedPositions(null);
 
     // When.
@@ -124,10 +126,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void wheneExpectedPositionIsEmpty_ExpectExceptionIsThrown()
+  public void givenEmptyExpectedPosition_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setExpectedPositions("");
 
     // When.
@@ -139,10 +141,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenHorizontalLimitMinIsNull_ExpectExceptionIsThrown()
+  public void givenNullGardenHorizontalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin(null);
 
     // When.
@@ -154,10 +156,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenHorizontalLimitMinIsEmpty_ExpectExceptionIsThrown()
+  public void givenEmptyGardenHorizontalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin("");
 
     // When.
@@ -169,10 +171,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenHorizontalLimitMinIsNotNumeric_ExpectExceptionIsThrown()
+  public void givenNonNumericGardenHorizontalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin("GTG");
 
     // When.
@@ -184,10 +186,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenHorizontalLimitMaxIsNull_ExpectExceptionIsThrown()
+  public void givenNullGardenHorizontalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax(null);
 
     // When
@@ -199,10 +201,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenHorizontalLimitMaxIsEmpty_ExpectExceptionIsThrown()
+  public void givenEmptyGardenHorizontalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax("");
 
     // When.
@@ -214,10 +216,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenHorizontalLimitMaxIsNotNumeric_ExpectExceptionIsThrown()
+  public void givenNonNumericGardenHorizontalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax("GTG");
 
     // When.
@@ -229,10 +231,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenVerticalLimitMinIsNull_ExpectExceptionIsThrown()
+  public void givenNullGardenVerticalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin(null);
 
     // When.
@@ -244,10 +246,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenVerticalLimitMinIsEmpty_ExpectExceptionIsThrown()
+  public void givenEmptyGardenVerticalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given: overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin("");
 
     // When.
@@ -259,10 +261,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenVerticalLimitMinIsNotNumeric_ExpectExceptionIsThrown()
+  public void givenNonNumericGardenVerticalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin("GTG");
 
     // When.
@@ -274,10 +276,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenVerticalLimitMaxIsNull_ExpectExceptionIsThrown()
+  public void givenNullGardenVerticalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax(null);
 
     // When.
@@ -289,10 +291,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenVerticalLimitMaxIsEmpty_ExpectExceptionIsThrown()
+  public void givenEmptyGardenVerticalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax("");
 
     // When.
@@ -304,10 +306,10 @@ public class ApplicationParamServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenGardenVerticalLimitMaxIsNotNumeric_ExpectExceptionIsThrown()
+  public void givenNonNumericGardenVerticalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
       throws ApplicationParamException {
 
-    // Given : overrides current parameter in order to simulate an error case.
+    // Given.
     ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax("GTG");
 
     // When.

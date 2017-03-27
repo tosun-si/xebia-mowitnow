@@ -20,10 +20,6 @@ public enum PositionMapper {
   // Single instance.
   INSTANCE;
 
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
-
   /**
    * Allows to transform the given positions parameters to {@link Position} list.
    * 
@@ -31,15 +27,9 @@ public enum PositionMapper {
    * @return {@link Position} list
    */
   public List<Position> paramsToPositions(final String positionParams) {
-
-    // Transforms the given position parameters to position objects.
     return Pattern.compile(MowitnowConstant.MOWERS_SEPARATOR).splitAsStream(positionParams)
         .map(this::toPositions).collect(Collectors.toList());
   }
-
-  // ----------------------------------------------
-  // Private methods
-  // ----------------------------------------------
 
   /**
    * Allows to transform the given position string (parameter) to {@link Position}.
@@ -61,7 +51,6 @@ public enum PositionMapper {
     positionParam.chars().mapToObj(i -> (char) i).map(String::valueOf)
         .forEach(field -> modifyPositionField(index.incrementAndGet(), field, position));
 
-    // Returns created position.
     return position;
   }
 

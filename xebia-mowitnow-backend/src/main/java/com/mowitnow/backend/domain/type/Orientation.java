@@ -56,10 +56,6 @@ public enum Orientation {
     }
   };
 
-  // ----------------------------------------------
-  // Abstract method
-  // ----------------------------------------------
-
   /**
    * Allows from the given direction and x/y coordinates, to move mower and returns new result
    * position. A {@link Position} contains new orientation (N,E,W,S) and new x/y coordinates.

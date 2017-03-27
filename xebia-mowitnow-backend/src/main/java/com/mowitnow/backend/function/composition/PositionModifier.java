@@ -15,16 +15,8 @@ import com.google.common.collect.Maps;
  */
 public final class PositionModifier {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
   private final String positionField;
   private final Map<Integer, Consumer<String>> actions;
-
-  // ----------------------------------------------
-  // Constructor
-  // ----------------------------------------------
 
   /**
    * Initialize modifier with position field value.
@@ -35,10 +27,6 @@ public final class PositionModifier {
     this.positionField = positionField;
     this.actions = Maps.newHashMap();
   }
-
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
 
   /**
    * Static factory method that allows to initialize modifier with a field value.

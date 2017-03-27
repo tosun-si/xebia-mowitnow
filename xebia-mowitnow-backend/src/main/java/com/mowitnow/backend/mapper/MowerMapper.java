@@ -19,10 +19,6 @@ public enum MowerMapper {
   // Single instance.
   INSTANCE;
 
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
-
   /**
    * Allows to transform the given applications parameters to {@link Mower} list. These parameters
    * concerns mower number, directions and positions.

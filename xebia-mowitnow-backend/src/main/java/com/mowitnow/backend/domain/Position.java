@@ -16,17 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Position {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
   private Integer coordinateX;
   private Integer coordinateY;
   private Orientation orientation;
-
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
 
   public void coordinateX(final String coordinateX) {
     setCoordinateX(Integer.valueOf(coordinateX));

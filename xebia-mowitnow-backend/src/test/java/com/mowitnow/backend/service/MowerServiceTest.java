@@ -21,21 +21,13 @@ import com.mowitnow.backend.dto.PositionFinalDto;
  */
 public class MowerServiceTest extends AbstractTest {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
   @Inject
   private IMowerService mowerService;
   @Inject
   private IApplicationParamService applicationParamService;
 
-  // ----------------------------------------------
-  // Tests
-  // ----------------------------------------------
-
   @Test
-  public void whenComputeLastPositionOfExistingMowers_ExpectResultsOk() {
+  public void givenAppParams_whenComputeLastPositionOfMowers_thenExpectedPositionInResult() {
 
     // Calls service.
     final List<PositionFinalDto> finalPositions = mowerService.getFinalPositions();
@@ -73,7 +65,7 @@ public class MowerServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenMowerHasCoordinatesXAndYIntoGarden_ExpectReturnTrue() {
+  public void givenCoordinatesXAndYIntoGarden_whenCallChecker_thenReturnTrue() {
 
     // Given.
     final Integer coordinateX = 1;
@@ -88,7 +80,7 @@ public class MowerServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenMowerHasCoordinateXNotIntoGarden_ExpectReturnFalse() {
+  public void givenCoordinateXNotIntoGarden_whenCallChecker_thenReturnFalse() {
 
     // Given.
     final Integer coordinateX = 6;
@@ -103,7 +95,7 @@ public class MowerServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenMowerHasCoordinateYNotIntoGarden_ExpectReturnFalse() {
+  public void givenCoordinateYNotIntoGarden_whenCallChecker_thenReturnFalse() {
 
     // Given.
     final Integer coordinateX = 5;
@@ -118,7 +110,7 @@ public class MowerServiceTest extends AbstractTest {
   }
 
   @Test
-  public void whenMowerHasCoordinatesXAndYNotIntoGarden_ExpectReturnFalse() {
+  public void givenCoordinatesXAndYNotIntoGarden_whenCallChecker_thenReturnFalse() {
 
     // Given.
     final Integer coordinateX = 6;

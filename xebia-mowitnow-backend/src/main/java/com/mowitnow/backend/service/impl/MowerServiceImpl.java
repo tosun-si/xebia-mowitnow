@@ -36,17 +36,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MowerServiceImpl implements IMowerService {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
-  private final @NonNull IApplicationParamService applicationParamService;
+  @NonNull
+  private final IApplicationParamService applicationParamService;
 
   private List<Mower> mowers;
-
-  // ----------------------------------------------
-  // Init
-  // ----------------------------------------------
 
   /**
    * Allows to initializes mowers.
@@ -59,10 +52,6 @@ public class MowerServiceImpl implements IMowerService {
     this.mowers = MowerMapper.INSTANCE.paramsToMowers(this.applicationParamService.getDirections(),
         this.applicationParamService.getPosition());
   }
-
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
 
   @Override
   public List<PositionFinalDto> getFinalPositions() {
@@ -92,10 +81,6 @@ public class MowerServiceImpl implements IMowerService {
         && IntStream.rangeClosed(gardenVerticalLimitMin, gardenVerticalLimitMax)
             .anyMatch(position.getCoordinateY()::equals);
   }
-
-  // ----------------------------------------------
-  // Private method
-  // ----------------------------------------------
 
   /**
    * Factory method that allows to get final position of the given mower. Final position contains

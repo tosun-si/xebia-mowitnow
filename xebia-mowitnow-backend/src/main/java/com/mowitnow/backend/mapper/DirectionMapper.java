@@ -17,10 +17,6 @@ public enum DirectionMapper {
   // Single instance.
   INSTANCE;
 
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
-
   /**
    * Allows to transform the given directions parameters to a result directions list. Each elements
    * of result list contains a direction list (list of list). Each direction list concerns a mower.
@@ -29,8 +25,6 @@ public enum DirectionMapper {
    * @return list where each element contains {@link Direction} list
    */
   public List<List<Direction>> paramsToDirection(final String directionsParams) {
-
-    // Build and returns result directions list.
     return Pattern.compile(MowitnowConstant.MOWERS_SEPARATOR).splitAsStream(directionsParams)
         .map(this::toDirection).collect(Collectors.toList());
   }
@@ -42,8 +36,6 @@ public enum DirectionMapper {
    * @return {@link Direction} direction list
    */
   private List<Direction> toDirection(final String directionsParam) {
-
-    // Transforms directions parameters list to direction enumeration list.
     return directionsParam.chars().mapToObj(i -> (char) i).map(String::valueOf)
         .map(Direction::valueOf).collect(Collectors.toList());
   }

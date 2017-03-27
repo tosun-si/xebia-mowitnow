@@ -17,15 +17,7 @@ import com.mowitnow.backend.domain.type.Direction;
  */
 public final class PositionFactory {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
   private final Map<Direction, Supplier<Position>> positions = Maps.newHashMap();
-
-  // ----------------------------------------------
-  // Constructor
-  // ----------------------------------------------
 
   /**
    * Private and empty constructor.
@@ -33,10 +25,6 @@ public final class PositionFactory {
   private PositionFactory() {
     // An empty constructor.
   }
-
-  // ----------------------------------------------
-  // Public methods
-  // ----------------------------------------------
 
   /**
    * Static factory methods that allows to initialize factory.

@@ -27,10 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ApplicationParamServiceImpl implements IApplicationParamService {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
   @Value("${mower.positions}")
   private String position;
   @Value("${mower.directions}")
@@ -46,10 +42,6 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
   private String gardenVerticalLimitMin;
   @Value("${garden.limit.vertical.max}")
   private String gardenVerticalLimitMax;
-
-  // ----------------------------------------------
-  // Init
-  // ----------------------------------------------
 
   /**
    * Allows to initializes application parameters.
@@ -77,10 +69,6 @@ public class ApplicationParamServiceImpl implements IApplicationParamService {
         .validate(ApplicationParamServiceImpl::getGardenVerticalLimitMax, StringUtils::isNumeric, "Garden vertical limit max should not be in type numeric")
         .get();
   }
-
-  // ----------------------------------------------
-  // Private methods
-  // ----------------------------------------------
 
   /**
    * Checks if positions length is same to directions length.

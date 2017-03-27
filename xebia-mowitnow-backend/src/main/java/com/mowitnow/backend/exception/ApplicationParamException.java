@@ -7,14 +7,7 @@ package com.mowitnow.backend.exception;
  */
 public class ApplicationParamException extends Exception {
 
-  /**
-   * serialVersionUID.
-   */
   private static final long serialVersionUID = -2726531034067868568L;
-
-  // ----------------------------------------------
-  // Constructors
-  // ----------------------------------------------
 
   /**
    * Constructor without parameters.
