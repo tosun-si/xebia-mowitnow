@@ -23,6 +23,7 @@ import com.mowitnow.backend.service.IMowerService;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -66,13 +67,13 @@ public class MowerServiceImpl implements IMowerService {
   public boolean checkIntoGarden(final Position position) {
 
     // Gets garden limits.
-    final int gardenHorizontalLimitMin =
+    val gardenHorizontalLimitMin =
         Integer.valueOf(applicationParamService.getGardenHorizontalLimitMin());
-    final int gardenHorizontalLimitMax =
+    val gardenHorizontalLimitMax =
         Integer.valueOf(applicationParamService.getGardenHorizontalLimitMax());
-    final int gardenVerticalLimitMin =
+    val gardenVerticalLimitMin =
         Integer.valueOf(applicationParamService.getGardenVerticalLimitMin());
-    final int gardenVerticalLimitMax =
+    val gardenVerticalLimitMax =
         Integer.valueOf(applicationParamService.getGardenVerticalLimitMax());
 
     // Checks if the given x/y coordinates are between 0 and 5, via streams.

@@ -14,6 +14,9 @@ import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Orientation;
 import com.mowitnow.backend.dto.PositionFinalDto;
 
+import junitparams.Parameters;
+import lombok.val;
+
 /**
  * Allows to test business treatments of {@link IMowerService}.
  * 
@@ -25,6 +28,14 @@ public class MowerServiceTest extends AbstractTest {
   private IMowerService mowerService;
   @Inject
   private IApplicationParamService applicationParamService;
+
+  private Object[] parametersCheckIntoGarden() {
+    return new Object[][] {
+            { 1, 2, Orientation.N, true },
+            { 6, 2, Orientation.N, false },
+            { 5, -1, Orientation.N, false },
+            { 6, -1, Orientation.N, false } };
+  }
 
   @Test
   public void givenAppParams_whenComputeLastPositionOfMowers_thenExpectedPositionInResult() {
@@ -65,62 +76,17 @@ public class MowerServiceTest extends AbstractTest {
   }
 
   @Test
-  public void givenCoordinatesXAndYIntoGarden_whenCallChecker_thenReturnTrue() {
+  @Parameters(method = "parametersCheckIntoGarden")
+  public void givenPosition_whenCheckIntoGarden_thenReturnExpectedResult(final Integer coordinateX,
+      final Integer coordinateY, final Orientation orientation, final boolean expectedResult) {
 
     // Given.
-    final Integer coordinateX = 1;
-    final Integer coordinateY = 2;
-    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
+    val position = new Position(coordinateX, coordinateY, orientation);
 
     // When.
-    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
+    val isIntoGarden = mowerService.checkIntoGarden(position);
 
     // Then.
-    assertThat(isIntoGarden).isTrue();
-  }
-
-  @Test
-  public void givenCoordinateXNotIntoGarden_whenCallChecker_thenReturnFalse() {
-
-    // Given.
-    final Integer coordinateX = 6;
-    final Integer coordinateY = 2;
-    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
-
-    // When.
-    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
-
-    // Then.
-    assertThat(isIntoGarden).isFalse();
-  }
-
-  @Test
-  public void givenCoordinateYNotIntoGarden_whenCallChecker_thenReturnFalse() {
-
-    // Given.
-    final Integer coordinateX = 5;
-    final Integer coordinateY = -1;
-    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
-
-    // When.
-    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
-
-    // Then.
-    assertThat(isIntoGarden).isFalse();
-  }
-
-  @Test
-  public void givenCoordinatesXAndYNotIntoGarden_whenCallChecker_thenReturnFalse() {
-
-    // Given.
-    final Integer coordinateX = 6;
-    final Integer coordinateY = -1;
-    final Position position = new Position(coordinateX, coordinateY, Orientation.N);
-
-    // When.
-    final boolean isIntoGarden = mowerService.checkIntoGarden(position);
-
-    // Then.
-    assertThat(isIntoGarden).isFalse();
+    assertThat(isIntoGarden).isEqualTo(expectedResult);
   }
 }

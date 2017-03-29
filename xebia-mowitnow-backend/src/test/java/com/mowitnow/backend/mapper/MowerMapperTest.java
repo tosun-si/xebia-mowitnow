@@ -2,13 +2,12 @@ package com.mowitnow.backend.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
 import com.mowitnow.backend.constant.MowitnowConstant;
-import com.mowitnow.backend.domain.Mower;
+
+import lombok.val;
 
 /**
  * Allows to test treatments of {@link MowerMapper}.
@@ -21,13 +20,12 @@ public class MowerMapperTest extends AbstractTest {
   public void givenGoodParams_whenMapToMowers_thenCorrectResultList() {
 
     // Given.
-    final String directionsParams = "GAGAGAGAA,AADAADADDA";
-    final int mowerNumber = directionsParams.split(MowitnowConstant.MOWERS_SEPARATOR).length;
-    final String positionParams = "12N,33E";
+    val directionsParams = "GAGAGAGAA,AADAADADDA";
+    val mowerNumber = directionsParams.split(MowitnowConstant.MOWERS_SEPARATOR).length;
+    val positionParams = "12N,33E";
 
     // When.
-    final List<Mower> mowers =
-        MowerMapper.INSTANCE.paramsToMowers(directionsParams, positionParams);
+    val mowers = MowerMapper.INSTANCE.paramsToMowers(directionsParams, positionParams);
 
     // Then.
     assertThat(mowers).isNotNull().isNotEmpty().hasSize(mowerNumber);

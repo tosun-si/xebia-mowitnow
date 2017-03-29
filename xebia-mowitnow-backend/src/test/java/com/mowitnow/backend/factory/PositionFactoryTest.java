@@ -39,7 +39,7 @@ public class PositionFactoryTest extends AbstractTest {
   }
 
   @Test
-  public void givenNullDirection_whenCreatePosition_ExpectExceptionIsThrown() {
+  public void givenNullDirection_whenCreatePosition_thenExceptionIsThrown() {
 
     // Given, when.
     final ThrowingCallable action = () -> PositionFactory.builder()

@@ -10,6 +10,8 @@ import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.dto.PositionFinalDto;
 import com.mowitnow.backend.function.composition.PositionModifier;
 
+import lombok.val;
+
 /**
  * Mapper that allows to transform object that concerns {@link PositionFinalDto}.
  * 
@@ -40,10 +42,10 @@ public enum PositionMapper {
   private Position toPositions(final String positionParam) {
 
     // Initializes an atomic index.
-    final AtomicInteger index = new AtomicInteger(0);
+    val index = new AtomicInteger(0);
 
     // Initializes position to create.
-    final Position position = new Position();
+    val position = new Position();
 
     // Iterates overs all characters of current position. First character corresponds to X
     // coordinate, the second corresponds to Y coordinate and the last corresponds to orientation.

@@ -2,12 +2,11 @@ package com.mowitnow.backend.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import com.mowitnow.backend.AbstractTest;
-import com.mowitnow.backend.domain.Position;
+
+import lombok.val;
 
 /**
  * Allows to test treatments of {@link PositionMapper}.
@@ -20,10 +19,10 @@ public class PositionMapperTest extends AbstractTest {
   public void givenPositionParams_whenMapToPositions_thenCorrectResultList() {
 
     // Given.
-    final String positionParams = "12N,33E";
+    val positionParams = "12N,33E";
 
     // When.
-    final List<Position> positions = PositionMapper.INSTANCE.paramsToPositions(positionParams);
+    val positions = PositionMapper.INSTANCE.paramsToPositions(positionParams);
 
     // Then.
     assertThat(positions).isNotNull().isNotEmpty().hasSize(2);

@@ -2,6 +2,8 @@ package com.mowitnow.backend.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.function.Consumer;
+
 import javax.inject.Inject;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
@@ -11,6 +13,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import com.mowitnow.backend.AbstractTest;
 import com.mowitnow.backend.exception.ApplicationParamException;
 import com.mowitnow.backend.service.impl.ApplicationParamServiceImpl;
+
+import junitparams.Parameters;
 
 /**
  * Allows to test business treatments of {@link IApplicationParamService}.<br>
@@ -22,301 +26,105 @@ import com.mowitnow.backend.service.impl.ApplicationParamServiceImpl;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class ApplicationParamServiceTest extends AbstractTest {
 
-  // ----------------------------------------------
-  // Fields
-  // ----------------------------------------------
-
   @Inject
   private ApplicationParamServiceImpl applicationParamService;
 
-  // ----------------------------------------------
-  // Tests
-  // ----------------------------------------------
+  private Object[] parametersForFailedValidations() {
 
-  @Test
-  public void givenNullPositionParam_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
+    // Position.
+    final Consumer<ApplicationParamServiceImpl> nullPosition = a -> a.setPosition(null);
+    final Consumer<ApplicationParamServiceImpl> emptyPosition = a -> a.setPosition("");
+    final Consumer<ApplicationParamServiceImpl> positionNbDifferentToDirections = a -> {
+      a.setPosition("12N,33E");
+      a.setDirections("GAGAGAGAA,AADAADADDA,GGADDADGDG");
+    };
 
-    // Given : overrides current position parameter to null in order to simulate an error case.
-    ((ApplicationParamServiceImpl) applicationParamService).setPosition(null);
+    // Direction.
+    final Consumer<ApplicationParamServiceImpl> nullDirection = a -> a.setDirections(null);
+    final Consumer<ApplicationParamServiceImpl> emptyDirection = a -> a.setDirections("");
 
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
+    // Expected position.
+    final Consumer<ApplicationParamServiceImpl> nullExpectedPosition =
+        a -> a.setExpectedPositions(null);
+    final Consumer<ApplicationParamServiceImpl> emptyExpectedPosition =
+        a -> a.setExpectedPositions("");
 
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Positions parameters should not be empty");
+    // Garden horizontal limit min.
+    final Consumer<ApplicationParamServiceImpl> nullGardenHorizontalLimitMin =
+        a -> a.setGardenHorizontalLimitMin(null);
+    final Consumer<ApplicationParamServiceImpl> emptyGardenHorizontalLimitMin =
+        a -> a.setGardenHorizontalLimitMin("");
+    final Consumer<ApplicationParamServiceImpl> nonNumericGardenHorizontalLimitMin =
+        a -> a.setGardenHorizontalLimitMin("GTC");
+
+    // Garden horizontal limit max.
+    final Consumer<ApplicationParamServiceImpl> nullGardenHorizontalLimitMax =
+        a -> a.setGardenHorizontalLimitMax(null);
+    final Consumer<ApplicationParamServiceImpl> emptyGardenHorizontalLimitMax =
+        a -> a.setGardenHorizontalLimitMax("");
+    final Consumer<ApplicationParamServiceImpl> nonNumericGardenHorizontalLimitMax =
+        a -> a.setGardenHorizontalLimitMax("GTC");
+
+    // Garden vertical limit min.
+    final Consumer<ApplicationParamServiceImpl> nullGardenVerticalLimitMin =
+        a -> a.setGardenVerticalLimitMin(null);
+    final Consumer<ApplicationParamServiceImpl> emptyGardenVerticalLimitMin =
+        a -> a.setGardenVerticalLimitMin("");
+    final Consumer<ApplicationParamServiceImpl> nonNumericGardenVerticalLimitMin =
+        a -> a.setGardenVerticalLimitMin("GTC");
+
+    // Garden vertical limit max.
+    final Consumer<ApplicationParamServiceImpl> nullGardenVerticalLimitMax =
+        a -> a.setGardenVerticalLimitMax(null);
+    final Consumer<ApplicationParamServiceImpl> emptyGardenVerticalLimitMax =
+        a -> a.setGardenVerticalLimitMax("");
+    final Consumer<ApplicationParamServiceImpl> nonNumericGardenVerticalLimitMax =
+        a -> a.setGardenVerticalLimitMax("GTC");
+
+    return new Object[][] { { nullPosition, "Positions parameters should not be empty" },
+        { emptyPosition, "Positions parameters should not be empty" },
+        { positionNbDifferentToDirections, "Positions length must be same to directions length" },
+
+        { nullDirection, "Directions parameters should not be empty" },
+        { emptyDirection, "Directions parameters should not be empty" },
+
+        { nullExpectedPosition, "Expected positions parameters should not be empty" },
+        { emptyExpectedPosition, "Expected positions parameters should not be empty" },
+
+        { nullGardenHorizontalLimitMin, "Garden horizontal limit min should not be empty" },
+        { emptyGardenHorizontalLimitMin, "Garden horizontal limit min should not be empty" },
+        { nonNumericGardenHorizontalLimitMin,
+            "Garden horizontal limit min should not be in type numeric" },
+
+        { nullGardenHorizontalLimitMax, "Garden horizontal limit max should not be empty" },
+        { emptyGardenHorizontalLimitMax, "Garden horizontal limit max should not be empty" },
+        { nonNumericGardenHorizontalLimitMax,
+            "Garden horizontal limit max should not be in type numeric" },
+
+        { nullGardenVerticalLimitMin, "Garden vertical limit min should not be empty" },
+        { emptyGardenVerticalLimitMin, "Garden vertical limit min should not be empty" },
+        { nonNumericGardenVerticalLimitMin,
+            "Garden vertical limit min should not be in type numeric" },
+
+        { nullGardenVerticalLimitMax, "Garden vertical limit max should not be empty" },
+        { emptyGardenVerticalLimitMax, "Garden vertical limit max should not be empty" },
+        { nonNumericGardenVerticalLimitMax,
+            "Garden vertical limit max should not be in type numeric" } };
   }
 
   @Test
-  public void givenNullDirectionsParam_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
+  @Parameters(method = "parametersForFailedValidations")
+  public void givenParamsWithError_whenValidateAppParameters_thenExceptionIsThrownWithExpectedMessage(
+      final Consumer<ApplicationParamServiceImpl> failedAction, final String expectedMessage) {
 
     // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setDirections(null);
+    failedAction.accept(applicationParamService);
 
     // When.
     final ThrowingCallable action = () -> applicationParamService.init();
 
     // Then.
     assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Directions parameters should not be empty");
-  }
-
-  @Test
-  public void givenEmptyPositionParam_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setPosition("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Positions parameters should not be empty");
-  }
-
-  @Test
-  public void givenEmptyDirectionsParam_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given : overrides current directions parameter to null in order to simulate an error case.
-    ((ApplicationParamServiceImpl) applicationParamService).setDirections("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Directions parameters should not be empty");
-  }
-
-  @Test
-  public void givenPositionNumberDifferentToDirections_whenValidateAppParameters_ExpectExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setPosition("12N,33E");
-    ((ApplicationParamServiceImpl) applicationParamService)
-        .setDirections("GAGAGAGAA,AADAADADDA,GGADDADGDG");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Positions length must be same to directions length");
-  }
-
-  @Test
-  public void givenNullExpectedPosition_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setExpectedPositions(null);
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Expected positions parameters should not be empty");
-  }
-
-  @Test
-  public void givenEmptyExpectedPosition_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setExpectedPositions("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Expected positions parameters should not be empty");
-  }
-
-  @Test
-  public void givenNullGardenHorizontalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin(null);
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden horizontal limit min should not be empty");
-  }
-
-  @Test
-  public void givenEmptyGardenHorizontalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden horizontal limit min should not be empty");
-  }
-
-  @Test
-  public void givenNonNumericGardenHorizontalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMin("GTG");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden horizontal limit min should not be in type numeric");
-  }
-
-  @Test
-  public void givenNullGardenHorizontalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax(null);
-
-    // When
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden horizontal limit max should not be empty");
-  }
-
-  @Test
-  public void givenEmptyGardenHorizontalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden horizontal limit max should not be empty");
-  }
-
-  @Test
-  public void givenNonNumericGardenHorizontalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenHorizontalLimitMax("GTG");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden horizontal limit max should not be in type numeric");
-  }
-
-  @Test
-  public void givenNullGardenVerticalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin(null);
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden vertical limit min should not be empty");
-  }
-
-  @Test
-  public void givenEmptyGardenVerticalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden vertical limit min should not be empty");
-  }
-
-  @Test
-  public void givenNonNumericGardenVerticalLimitMin_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMin("GTG");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden vertical limit min should not be in type numeric");
-  }
-
-  @Test
-  public void givenNullGardenVerticalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax(null);
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden vertical limit max should not be empty");
-  }
-
-  @Test
-  public void givenEmptyGardenVerticalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax("");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden vertical limit max should not be empty");
-  }
-
-  @Test
-  public void givenNonNumericGardenVerticalLimitMax_whenValidateAppParameters_thenExceptionIsThrown()
-      throws ApplicationParamException {
-
-    // Given.
-    ((ApplicationParamServiceImpl) applicationParamService).setGardenVerticalLimitMax("GTG");
-
-    // When.
-    final ThrowingCallable action = () -> applicationParamService.init();
-
-    // Then.
-    assertThatThrownBy(action).isInstanceOf(ApplicationParamException.class)
-        .hasStackTraceContaining("Garden vertical limit max should not be in type numeric");
+        .hasStackTraceContaining(expectedMessage);
   }
 }
