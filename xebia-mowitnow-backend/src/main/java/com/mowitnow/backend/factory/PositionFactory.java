@@ -8,6 +8,8 @@ import com.google.common.collect.Maps;
 import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Direction;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Factory that allows build and get {@link Position} by a {@link Direction}.<br>
  * This factory associates some directions with position suppliers, with a fluent style method.<br>
@@ -15,16 +17,10 @@ import com.mowitnow.backend.domain.type.Direction;
  * 
  * @author Mazlum TOSUN
  */
+@NoArgsConstructor
 public final class PositionFactory {
 
   private final Map<Direction, Supplier<Position>> positions = Maps.newHashMap();
-
-  /**
-   * Private and empty constructor.
-   */
-  private PositionFactory() {
-    // An empty constructor.
-  }
 
   /**
    * Static factory methods that allows to initialize factory.

@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 
 import com.google.common.collect.Maps;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Class that allows to modify some fields on position object.<br>
  * This class allows to add all possible modifications (represented by consumer functions) and each
@@ -13,20 +15,11 @@ import com.google.common.collect.Maps;
  * 
  * @author Mazlum TOSUN
  */
+@AllArgsConstructor
 public final class PositionModifier {
 
   private final String positionField;
-  private final Map<Integer, Consumer<String>> actions;
-
-  /**
-   * Initialize modifier with position field value.
-   * 
-   * @param positionField position field value
-   */
-  private PositionModifier(final String positionField) {
-    this.positionField = positionField;
-    this.actions = Maps.newHashMap();
-  }
+  private final Map<Integer, Consumer<String>> actions = Maps.newHashMap();
 
   /**
    * Static factory method that allows to initialize modifier with a field value.

@@ -1,20 +1,14 @@
 package com.mowitnow.backend.exception;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Exception that thrown when it exists application parameters errors.
  * 
  * @author Mazlum TOSUN
  */
-public class ApplicationParamException extends Exception {
-
-  private static final long serialVersionUID = -2726531034067868568L;
-
-  /**
-   * Constructor without parameters.
-   */
-  public ApplicationParamException() {
-    super();
-  }
+@NoArgsConstructor
+public class ApplicationParamException extends RuntimeException {
 
   /**
    * Constructor with message.

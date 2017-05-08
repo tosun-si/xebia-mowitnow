@@ -10,34 +10,30 @@ import org.apache.commons.lang3.BooleanUtils;
 
 import com.mowitnow.backend.exception.ApplicationParamException;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Monad that allows to compose and chain operation in order to validate many field of the given
  * object {@code <T>}.
  *
  * Created by Mazlum on 25/08/2016.
  */
+@RequiredArgsConstructor
 public class Validator<T> {
 
-  private T t;
+  @NonNull
+  private T object;
   private List<ApplicationParamException> errors = new ArrayList<>();
-
-  /**
-   * Constructor with given object.
-   *
-   * @param t current object
-   */
-  private Validator(final T t) {
-    this.t = t;
-  }
 
   /**
    * Static factory method that allows to create new {@link Validator} instance, with given object.
    *
-   * @param t current object
+   * @param object current object
    * @return {@link Validator} with object
    */
-  public static <T> Validator<T> of(final T t) {
-    return new Validator<T>(t);
+  public static <T> Validator<T> of(final T object) {
+    return new Validator<>(object);
   }
 
   /**
@@ -55,7 +51,8 @@ public class Validator<T> {
 
     // Checks if current field is invalid. In this case an error message is added in a list that
     // contains all errors.
-    final boolean isValidField = filter.test(projection.apply(t));
+    final Predicate<T> filterOnField = projection.andThen(filter::test)::apply;
+    final boolean isValidField = filterOnField.test(object);
     Optional.of(isValidField).filter(BooleanUtils::isFalse)
         .ifPresent(e -> this.errors.add(new ApplicationParamException(message)));
 
@@ -74,7 +71,7 @@ public class Validator<T> {
 
     // If there is no error, we return current object.
     if (errors.isEmpty()) {
-      return t;
+      return object;
     }
 
     // Otherwise an exception is thrown with all error message.

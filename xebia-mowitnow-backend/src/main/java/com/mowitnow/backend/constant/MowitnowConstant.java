@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
  * @author Mazlum TOSUN
  */
 @UtilityClass
-public final class MowitnowConstant {
+public class MowitnowConstant {
 
   public static final String MOWERS_SEPARATOR = ",";
 }
