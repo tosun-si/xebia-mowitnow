@@ -20,6 +20,19 @@ public class Position {
   private Integer coordinateY;
   private Orientation orientation;
 
+  /**
+   * Creates a new {@link Position} from the given X,Y coordinates and orientation.
+   * 
+   * @param coordinateX X coordinate
+   * @param coordinateY Y coordinate
+   * @param orientation orientation
+   * @return Position
+   */
+  public static Position of(final Integer coordinateX, Integer coordinateY,
+      Orientation orientation) {
+    return new Position(coordinateX, coordinateY, orientation);
+  }
+
   public void coordinateX(final String coordinateX) {
     setCoordinateX(Integer.valueOf(coordinateX));
   }

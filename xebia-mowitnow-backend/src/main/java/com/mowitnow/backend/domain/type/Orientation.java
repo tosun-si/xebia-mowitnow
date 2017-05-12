@@ -17,9 +17,9 @@ public enum Orientation {
         final int coordinateY) {
 
       return PositionHelper.INSTANCE.getPosition(direction,
-          () -> new Position(coordinateX, coordinateY, Orientation.W),
-          () -> new Position(coordinateX, coordinateY, Orientation.E),
-          () -> new Position(coordinateX, coordinateY + 1, Orientation.N));
+          () -> Position.of(coordinateX, coordinateY, Orientation.W),
+          () -> Position.of(coordinateX, coordinateY, Orientation.E),
+          () -> Position.of(coordinateX, coordinateY + 1, Orientation.N));
     }
   },
   E {
@@ -28,9 +28,9 @@ public enum Orientation {
         final int coordinateY) {
 
       return PositionHelper.INSTANCE.getPosition(direction,
-          () -> new Position(coordinateX, coordinateY, Orientation.N),
-          () -> new Position(coordinateX, coordinateY, Orientation.S),
-          () -> new Position(coordinateX + 1, coordinateY, Orientation.E));
+          () -> Position.of(coordinateX, coordinateY, Orientation.N),
+          () -> Position.of(coordinateX, coordinateY, Orientation.S),
+          () -> Position.of(coordinateX + 1, coordinateY, Orientation.E));
     }
   },
   W {
@@ -39,9 +39,9 @@ public enum Orientation {
         final int coordinateY) {
 
       return PositionHelper.INSTANCE.getPosition(direction,
-          () -> new Position(coordinateX, coordinateY, Orientation.S),
-          () -> new Position(coordinateX, coordinateY, Orientation.N),
-          () -> new Position(coordinateX - 1, coordinateY, Orientation.W));
+          () -> Position.of(coordinateX, coordinateY, Orientation.S),
+          () -> Position.of(coordinateX, coordinateY, Orientation.N),
+          () -> Position.of(coordinateX - 1, coordinateY, Orientation.W));
     }
   },
   S {
@@ -50,9 +50,9 @@ public enum Orientation {
         final int coordinateY) {
 
       return PositionHelper.INSTANCE.getPosition(direction,
-          () -> new Position(coordinateX, coordinateY, Orientation.E),
-          () -> new Position(coordinateX, coordinateY, Orientation.W),
-          () -> new Position(coordinateX, coordinateY - 1, Orientation.S));
+          () -> Position.of(coordinateX, coordinateY, Orientation.E),
+          () -> Position.of(coordinateX, coordinateY, Orientation.W),
+          () -> Position.of(coordinateX, coordinateY - 1, Orientation.S));
     }
   };
 
