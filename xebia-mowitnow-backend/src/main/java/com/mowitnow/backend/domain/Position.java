@@ -1,5 +1,7 @@
 package com.mowitnow.backend.domain;
 
+import java.util.function.Supplier;
+
 import com.mowitnow.backend.domain.type.Orientation;
 
 import lombok.AllArgsConstructor;
@@ -21,16 +23,16 @@ public class Position {
   private Orientation orientation;
 
   /**
-   * Creates a new {@link Position} from the given X,Y coordinates and orientation.
+   * Creates a new supplier of {@link Position} from the given X,Y coordinates and orientation.
    * 
    * @param coordinateX X coordinate
    * @param coordinateY Y coordinate
    * @param orientation orientation
-   * @return Position
+   * @return a supplier of position
    */
-  public static Position of(final Integer coordinateX, Integer coordinateY,
+  public static Supplier<Position> of(final Integer coordinateX, Integer coordinateY,
       Orientation orientation) {
-    return new Position(coordinateX, coordinateY, orientation);
+    return () -> new Position(coordinateX, coordinateY, orientation);
   }
 
   public void coordinateX(final String coordinateX) {
