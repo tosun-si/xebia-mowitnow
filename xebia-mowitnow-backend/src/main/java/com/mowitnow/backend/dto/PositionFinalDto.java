@@ -8,13 +8,13 @@ import lombok.Getter;
 
 /**
  * Object that contains mower final position and mower that concerned by this position.
- * 
+ *
  * @author Mazlum TOSUN
  */
 @Builder
 @Getter
 public class PositionFinalDto {
 
-  private final Mower mower;
-  private final Position position;
+    private final Mower mower;
+    private final Position position;
 }

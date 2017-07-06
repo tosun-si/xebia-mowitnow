@@ -11,16 +11,16 @@ import junitparams.JUnitParamsRunner;
 
 /**
  * Abstract superclass of integrations tests.
- * 
+ *
  * @author Mazlum TOSUN
  */
 @RunWith(JUnitParamsRunner.class)
 @SpringBootTest
 public abstract class AbstractTest {
 
-  @ClassRule
-  public static final SpringClassRule SCR = new SpringClassRule();
+    @ClassRule
+    public static final SpringClassRule SCR = new SpringClassRule();
 
-  @Rule
-  public final SpringMethodRule springMethodRule = new SpringMethodRule();
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 }
