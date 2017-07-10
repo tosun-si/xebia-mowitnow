@@ -54,8 +54,7 @@ public class MowerServiceTest extends AbstractTest {
 
             // Given.
             final String expectedPosition = expectedPositions[index];
-            final Orientation expectedOrientation =
-                    Orientation.valueOf(String.valueOf(expectedPosition.charAt(0)));
+            final Orientation expectedOrientation = Orientation.valueOf(String.valueOf(expectedPosition.charAt(0)));
             final String expectedCoordinateX = String.valueOf(expectedPosition.charAt(1));
             final String expectedCoordinateY = String.valueOf(expectedPosition.charAt(2));
 
@@ -77,7 +76,6 @@ public class MowerServiceTest extends AbstractTest {
                                                                            final Integer coordinateY,
                                                                            final Orientation orientation,
                                                                            final boolean expectedResult) {
-
         // Given.
         val position = new Position(coordinateX, coordinateY, orientation);
 
