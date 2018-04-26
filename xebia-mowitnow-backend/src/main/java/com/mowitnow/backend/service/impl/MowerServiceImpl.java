@@ -158,5 +158,4 @@ public class MowerServiceImpl implements IMowerService {
         // Returns mowers.
         return this.mowers;
     }
-
 }
