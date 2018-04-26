@@ -6,18 +6,19 @@ import com.mowitnow.backend.domain.Position;
 import com.mowitnow.backend.domain.type.Direction;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import lombok.experimental.UtilityClass;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Mapper that allows to transform object that concerns {@link Mower}.
  *
  * @author Mazlum TOSUN
  */
-public enum MowerMapper {
-
-    // Single instance.
-    INSTANCE;
+@UtilityClass
+public class MowerMapper {
 
     /**
      * Allows to transform the given applications parameters to {@link Mower} list. These parameters
@@ -27,13 +28,11 @@ public enum MowerMapper {
      * @param positionParams   position parameters
      * @return {@link Mower} mower list
      */
-    public List<Mower> paramsToMowers(final String directionsParams, final String positionParams) {
+    public static List<Mower> paramsToMowers(final String directionsParams, final String positionParams) {
 
-        // Gets mower directions by directions that given by application parameters.
-        final List<List<Direction>> groupedDirections = DirectionMapper.INSTANCE.paramsToDirection(directionsParams);
-
-        // Gets mower positions by positions that given by application parameters.
-        final List<Position> positions = PositionMapper.INSTANCE.paramsToPositions(positionParams);
+        // Gets mower directions and positions by application parameters.
+        final List<List<Direction>> groupedDirections = DirectionMapper.paramsToDirection(directionsParams);
+        final List<Position> positions = PositionMapper.paramsToPositions(positionParams);
 
         // Gets mower number. This number corresponds to directions or positions number.
         final int mowerNumber = directionsParams.split(MowitnowConstant.MOWERS_SEPARATOR).length;
@@ -42,6 +41,6 @@ public enum MowerMapper {
         // We add each directions/positions to appropriate mower.
         return IntStream.range(0, mowerNumber)
                 .mapToObj(n -> Mower.builder().id(n).position(positions.get(n)).directions(groupedDirections.get(n)).build())
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }

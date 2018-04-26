@@ -80,7 +80,7 @@ public class MowerServiceTest extends AbstractTest {
         val position = new Position(coordinateX, coordinateY, orientation);
 
         // When.
-        val isIntoGarden = mowerService.checkIntoGarden(position);
+        val isIntoGarden = mowerService.isInGarden(position);
 
         // Then.
         assertThat(isIntoGarden).isEqualTo(expectedResult);

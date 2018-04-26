@@ -8,19 +8,19 @@ import com.mowitnow.backend.function.composition.PositionModifier;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
+import lombok.experimental.UtilityClass;
 import lombok.val;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Mapper that allows to transform object that concerns {@link PositionFinalDto}.
  *
  * @author Mazlum TOSUN
  */
-public enum PositionMapper {
-
-    // Single instance.
-    INSTANCE;
+@UtilityClass
+public class PositionMapper {
 
     /**
      * Allows to transform the given positions parameters to {@link Position} list.
@@ -28,11 +28,11 @@ public enum PositionMapper {
      * @param positionParams position parameters
      * @return {@link Position} list
      */
-    public List<Position> paramsToPositions(final String positionParams) {
+    public static List<Position> paramsToPositions(final String positionParams) {
         return Pattern.compile(MowitnowConstant.MOWERS_SEPARATOR)
                 .splitAsStream(positionParams)
-                .map(this::toPositions)
-                .collect(Collectors.toList());
+                .map(PositionMapper::toPositions)
+                .collect(toList());
     }
 
     /**
@@ -41,9 +41,8 @@ public enum PositionMapper {
      * @param positionParam current positions
      * @return {@link Position} position
      */
-    private Position toPositions(final String positionParam) {
+    private static Position toPositions(final String positionParam) {
 
-        // Initializes an atomic index.
         val index = new AtomicInteger(0);
 
         // Initializes position to create.
@@ -69,9 +68,9 @@ public enum PositionMapper {
      *
      * @param position current position
      */
-    private void modifyPositionField(final int index, final String positionField,
-                                     final Position position) {
-
+    private static void modifyPositionField(final int index,
+                                            final String positionField,
+                                            final Position position) {
         PositionModifier.from(positionField)
                 .modify(1, position::coordinateX)
                 .modify(2, position::coordinateY)

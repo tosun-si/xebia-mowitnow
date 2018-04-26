@@ -25,7 +25,7 @@ public class MowerMapperTest extends AbstractTest {
         val positionParams = "12N,33E";
 
         // When.
-        val mowers = MowerMapper.INSTANCE.paramsToMowers(directionsParams, positionParams);
+        val mowers = MowerMapper.paramsToMowers(directionsParams, positionParams);
 
         // Then.
         assertThat(mowers).isNotNull().isNotEmpty().hasSize(mowerNumber);

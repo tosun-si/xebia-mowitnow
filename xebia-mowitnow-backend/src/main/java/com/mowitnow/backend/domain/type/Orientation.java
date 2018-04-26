@@ -14,8 +14,7 @@ public enum Orientation {
     N {
         @Override
         public Position moveMower(final Direction direction, final int coordinateX, final int coordinateY) {
-
-            return PositionHelper.INSTANCE.getPosition(direction,
+            return PositionHelper.getPosition(direction,
                     Position.of(coordinateX, coordinateY, Orientation.W),
                     Position.of(coordinateX, coordinateY, Orientation.E),
                     Position.of(coordinateX, coordinateY + 1, Orientation.N));
@@ -24,8 +23,7 @@ public enum Orientation {
     E {
         @Override
         public Position moveMower(final Direction direction, final int coordinateX, final int coordinateY) {
-
-            return PositionHelper.INSTANCE.getPosition(direction,
+            return PositionHelper.getPosition(direction,
                     Position.of(coordinateX, coordinateY, Orientation.N),
                     Position.of(coordinateX, coordinateY, Orientation.S),
                     Position.of(coordinateX + 1, coordinateY, Orientation.E));
@@ -34,8 +32,7 @@ public enum Orientation {
     W {
         @Override
         public Position moveMower(final Direction direction, final int coordinateX, final int coordinateY) {
-
-            return PositionHelper.INSTANCE.getPosition(direction,
+            return PositionHelper.getPosition(direction,
                     Position.of(coordinateX, coordinateY, Orientation.S),
                     Position.of(coordinateX, coordinateY, Orientation.N),
                     Position.of(coordinateX - 1, coordinateY, Orientation.W));
@@ -44,8 +41,7 @@ public enum Orientation {
     S {
         @Override
         public Position moveMower(final Direction direction, final int coordinateX, final int coordinateY) {
-
-            return PositionHelper.INSTANCE.getPosition(direction,
+            return PositionHelper.getPosition(direction,
                     Position.of(coordinateX, coordinateY, Orientation.E),
                     Position.of(coordinateX, coordinateY, Orientation.W),
                     Position.of(coordinateX, coordinateY - 1, Orientation.S));

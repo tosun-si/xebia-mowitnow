@@ -5,17 +5,18 @@ import com.mowitnow.backend.domain.type.Direction;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
+import lombok.experimental.UtilityClass;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Mapper that allows to transform object that concerns {@link Direction}.
  *
  * @author Mazlum TOSUN
  */
-public enum DirectionMapper {
-
-    // Single instance.
-    INSTANCE;
+@UtilityClass
+public class DirectionMapper {
 
     /**
      * Allows to transform the given directions parameters to a result directions list. Each
@@ -25,11 +26,11 @@ public enum DirectionMapper {
      * @param directionsParams directions parameters
      * @return list where each element contains {@link Direction} list
      */
-    public List<List<Direction>> paramsToDirection(final String directionsParams) {
+    public static List<List<Direction>> paramsToDirection(final String directionsParams) {
         return Pattern.compile(MowitnowConstant.MOWERS_SEPARATOR)
                 .splitAsStream(directionsParams)
-                .map(this::toDirection)
-                .collect(Collectors.toList());
+                .map(DirectionMapper::toDirection)
+                .collect(toList());
     }
 
     /**
@@ -38,11 +39,11 @@ public enum DirectionMapper {
      * @param directionsParam directions parameter
      * @return {@link Direction} direction list
      */
-    private List<Direction> toDirection(final String directionsParam) {
+    private static List<Direction> toDirection(final String directionsParam) {
         return directionsParam.chars()
                 .mapToObj(i -> (char) i)
                 .map(String::valueOf)
                 .map(Direction::valueOf)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }

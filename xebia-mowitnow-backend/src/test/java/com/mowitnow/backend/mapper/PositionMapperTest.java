@@ -22,7 +22,7 @@ public class PositionMapperTest extends AbstractTest {
         val positionParams = "12N,33E";
 
         // When.
-        val positions = PositionMapper.INSTANCE.paramsToPositions(positionParams);
+        val positions = PositionMapper.paramsToPositions(positionParams);
 
         // Then.
         assertThat(positions).isNotNull().isNotEmpty().hasSize(2);

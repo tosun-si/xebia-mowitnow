@@ -6,15 +6,15 @@ import com.mowitnow.backend.factory.PositionFactory;
 
 import java.util.function.Supplier;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Helper that allows to get factory methods and do treatments on position object.
  *
  * @author Mazlum TOSUN
  */
-public enum PositionHelper {
-
-    // Single instance.
-    INSTANCE;
+@UtilityClass
+public class PositionHelper {
 
     /**
      * Factory method that allows to get position by the given direction.<br>
@@ -28,8 +28,10 @@ public enum PositionHelper {
      * @param advancePosition supplier that contains position object for advance direction
      * @return Position by the given direction
      */
-    public Position getPosition(final Direction direction, final Supplier<Position> leftPosition,
-                                final Supplier<Position> rightPosition, final Supplier<Position> advancePosition) {
+    public static Position getPosition(final Direction direction,
+                                       final Supplier<Position> leftPosition,
+                                       final Supplier<Position> rightPosition,
+                                       final Supplier<Position> advancePosition) {
 
         return PositionFactory.builder()
                 .register(Direction.G, leftPosition)

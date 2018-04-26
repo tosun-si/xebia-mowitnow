@@ -29,5 +29,5 @@ public interface IMowerService {
      * @param position current position that contains x, y coordinate
      * @return boolean for result
      */
-    boolean checkIntoGarden(final Position position);
+    boolean isInGarden(final Position position);
 }
