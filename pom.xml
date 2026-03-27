@@ -19,7 +19,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <assertj.version>3.5.2</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <junitparams.version>1.0.6</junitparams.version>
         <guava.version>19.0</guava.version>
         <javax-inject.version>1</javax-inject.version>
